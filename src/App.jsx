@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/protect" element={<Protect />} />
+        {/* <Route path="/:id" element={} /> */}
         <Route path="/recommend" element={<Recommend />} />
       </Routes>
     </>
