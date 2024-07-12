@@ -31,12 +31,15 @@ export default function ProtectList() {
       </div>
       <ul>
         {protectList.map((protect, index) => {
-          console.log(protect);
+          console.log(protect.lat);
           return (
             <JeonseCard
               address1={protect.address}
               address2={protect.atclNm + protect.bildNm + protect.spc2 + "평"}
+              atclNm={protect.atclNm}
               price={protect.hanPrc}
+              lat={protect.lat}
+              lng={protect.lng}
             />
           );
         })}

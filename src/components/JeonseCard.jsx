@@ -12,8 +12,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import KakaoMap from "./KakaoMap";
 
-export const JeonseCard = ({ address1, address2, price }) => {
+export const JeonseCard = ({ address1, address2, price, lat, lng, atclNm }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   return (
@@ -39,6 +40,7 @@ export const JeonseCard = ({ address1, address2, price }) => {
           </div>
         </div>
       </li>
+
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -47,10 +49,12 @@ export const JeonseCard = ({ address1, address2, price }) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          {/* <DrawerCloseButton /> */}
+          <DrawerHeader></DrawerHeader>
 
-          <DrawerBody>{price}</DrawerBody>
+          <DrawerBody>
+            <KakaoMap lat={lat} lng={lng} atclNm={atclNm} />
+          </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
