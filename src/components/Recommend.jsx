@@ -1,7 +1,9 @@
+import JeonseInfo from "./JeonseInfo";
+
 export default function Recommend() {
   return (
     <>
-      <div>Recommend</div>
+      <JeonseInfo />
     </>
   );
 }

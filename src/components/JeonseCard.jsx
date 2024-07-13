@@ -13,8 +13,12 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import KakaoMap from "./KakaoMap";
+import JeonseInfo from "./JeonseInfo";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const JeonseCard = ({ protect }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   return (
@@ -52,33 +56,38 @@ export const JeonseCard = ({ protect }) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader>
-            <div className="flex justify-end">
-              <div
-                className="rounded-full bg-red-600 w-7 h-7 text-center text-white"
-                onClick={() => {
-                  onClose();
-                }}
-              ></div>
-            </div>
-
-            {/* <Button variant="solid" colorScheme="red" mr={3} onClick={onClose}>
-              X
-            </Button> */}
-          </DrawerHeader>
+          <DrawerHeader />
+          {/* <div className="flex justify-end">
+            <div
+              className="rounded-full bg-red-600 w-7 h-7 text-center text-white mt-2 mr-4"
+              onClick={() => {
+                onClose();
+              }}
+            ></div>
+          </div> */}
 
           <DrawerBody>
+            <div className="text-3xl font-bold mb-5">{protect.address}</div>
             <KakaoMap
               lat={protect.lat}
               lng={protect.lng}
               atclNm={protect.atclNm}
             />
+            <JeonseInfo protect={protect} />
+            <div
+              className="bg-slate-300 w-52 text-center pt-4 pb-4 rounded-lg cursor-pointer font-bold ml-auto mr-auto mb-8 mt-8 text-xl"
+              onClick={() => {
+                navigate("/protect/" + id + "/result");
+                onClose();
+              }}
+            >
+              예방 결과 보기
+            </div>
           </DrawerBody>
 
-          <DrawerFooter>
+          {/* <DrawerFooter>
             {" "}
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
+          </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </>

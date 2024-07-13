@@ -16,7 +16,7 @@ export default function Protect() {
         `https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI0MDcxMDE2MDc0NjExNDkxMTY=&currentPage=1&countPerPage=100&keyword=${address}&resultType=json`
       )
       .then((res) => {
-        console.log(res.data.results.juso);
+        // console.log(res.data.results.juso);
         setSearchResults(res.data.results.juso);
       })
       .catch((err) => {
