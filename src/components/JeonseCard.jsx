@@ -14,28 +14,30 @@ import {
 import React from "react";
 import KakaoMap from "./KakaoMap";
 
-export const JeonseCard = ({ address1, address2, price, lat, lng, atclNm }) => {
+export const JeonseCard = ({ protect }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   return (
     <>
       <li
-        className="flex w-[650px] gap-4 p-2 border shadow-lg items-center justify-center cursor-pointer rounded-lg ml-auto mr-auto mb-10"
+        className="w-[650px] gap-4 p-2 border shadow-lg cursor-pointer rounded-lg ml-auto mr-auto mb-10"
         ref={btnRef}
         onClick={onOpen}
       >
-        {/* right box */}
-        <div className="flex gap-4 items-center">
-          {/* icon */}
-          <div className="h-20 w-20 flex items-center justify-center bg-slate-200 rounded-lg">
-            <MdApartment size={48} />
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <div className="h-20 w-20 flex items-center justify-center bg-slate-200 rounded-lg">
+              <MdApartment size={48} />
+            </div>
+            <div className="ml-5 flex flex-col">
+              <span className="font-bold text-lg">{protect.address}</span>
+              <span className="text-xs opacity-40">
+                {protect.atclNm + " " + protect.spc2 + "평"}
+              </span>
+              <span className="font-bold text-lg">{protect.hanPrc}원</span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-lg">{address1}</span>
-            <span className="text-xs opacity-40">{address2}</span>
-            <span className="font-bold text-lg">{price}원</span>
-          </div>
-          <div>
+          <div className="mr-5">
             <IoIosArrowDroprightCircle size={48} className="text-gray-500" />
           </div>
         </div>
@@ -46,20 +48,35 @@ export const JeonseCard = ({ address1, address2, price, lat, lng, atclNm }) => {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
+        size="md"
       >
         <DrawerOverlay />
         <DrawerContent>
-          {/* <DrawerCloseButton /> */}
-          <DrawerHeader></DrawerHeader>
+          <DrawerHeader>
+            <div className="flex justify-end">
+              <div
+                className="rounded-full bg-red-600 w-7 h-7 text-center text-white"
+                onClick={() => {
+                  onClose();
+                }}
+              ></div>
+            </div>
+
+            {/* <Button variant="solid" colorScheme="red" mr={3} onClick={onClose}>
+              X
+            </Button> */}
+          </DrawerHeader>
 
           <DrawerBody>
-            <KakaoMap lat={lat} lng={lng} atclNm={atclNm} />
+            <KakaoMap
+              lat={protect.lat}
+              lng={protect.lng}
+              atclNm={protect.atclNm}
+            />
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
+            {" "}
             <Button colorScheme="blue">Save</Button>
           </DrawerFooter>
         </DrawerContent>

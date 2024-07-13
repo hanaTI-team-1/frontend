@@ -6,6 +6,9 @@ import { JeonseCard } from "./JeonseCard";
 
 export default function ProtectList() {
   const { id } = useParams();
+
+  let [address, aptName] = id.split("+");
+  address = address.replace("서울특별시", "서울");
   const [protectList, setProtectList] = useState([]);
   const getProtectList = async () => {
     try {
@@ -15,6 +18,23 @@ export default function ProtectList() {
       console.error("Error fetching the protect list:", error);
     }
   };
+
+  // const getProtectList = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://34.64.201.85:8081/api/jeonse/remain",
+  //       {
+  //         params: {
+  //           address: address,
+  //           aptName: aptName,
+  //         },
+  //       }
+  //     );
+  //     setProtectList(response.data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching the protect list:", error);
+  //   }
+  // };
 
   useEffect(() => {
     getProtectList();
@@ -32,16 +52,7 @@ export default function ProtectList() {
       <ul>
         {protectList.map((protect, index) => {
           console.log(protect.lat);
-          return (
-            <JeonseCard
-              address1={protect.address}
-              address2={protect.atclNm + protect.bildNm + protect.spc2 + "평"}
-              atclNm={protect.atclNm}
-              price={protect.hanPrc}
-              lat={protect.lat}
-              lng={protect.lng}
-            />
-          );
+          return <JeonseCard key={index} protect={protect} />;
         })}
       </ul>
     </>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "./Header";
 import { useNavigate } from "react-router-dom";
 import "animate.css";
+import JusoBox from "./JusoBox";
 
 export default function Protect() {
   const [address, setAddress] = useState("");
@@ -15,7 +16,7 @@ export default function Protect() {
         `https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI0MDcxMDE2MDc0NjExNDkxMTY=&currentPage=1&countPerPage=100&keyword=${address}&resultType=json`
       )
       .then((res) => {
-        // console.log(res.data.results.juso);
+        console.log(res.data.results.juso);
         setSearchResults(res.data.results.juso);
       })
       .catch((err) => {
@@ -58,44 +59,6 @@ export default function Protect() {
         {searchResults.map((result, index) => {
           return <JusoBox key={index} result={result} />;
         })}
-      </div>
-    </>
-  );
-}
-
-function JusoBox({ result }) {
-  const navigate = useNavigate();
-
-  const splitJibunAddr = (jibunAddr, bdNm) => {
-    const tempAddr = jibunAddr.replace(` ${bdNm}`, "");
-    return tempAddr;
-  };
-
-  return (
-    <>
-      <div
-        className="bg-gray-100 w-[650px] rounded-lg pt-6 pb-6 pl-4 pr-4 ml-auto mr-auto mt-5 mb-5 cursor-pointer animate__animated animate__pulse"
-        onClick={() => {
-          navigate(
-            "/protect/" +
-              splitJibunAddr(result.jibunAddr, result.bdNm) +
-              "+" +
-              result.bdNm
-          );
-        }}
-      >
-        <div className="flex items-center mb-5">
-          <div className="bg-sky-200 text-blue-600 pl-1 pr-1 pt-1 pb-1 rounded-lg font-bold">
-            도로명
-          </div>
-          <div className="pl-3 text-gray-400">{result.roadAddr}</div>
-        </div>
-        <div className="flex items-center mt-5">
-          <div className="bg-gray-300 pl-1 pr-1 pt-1 pb-1 rounded-lg font-bold">
-            구주소
-          </div>
-          <div className="pl-3 text-gray-400">{result.jibunAddr}</div>
-        </div>
       </div>
     </>
   );
