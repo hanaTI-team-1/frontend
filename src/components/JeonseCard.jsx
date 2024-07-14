@@ -1,12 +1,9 @@
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { MdApartment } from "react-icons/md";
 import {
-  Button,
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
@@ -21,6 +18,7 @@ export const JeonseCard = ({ protect }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  console.log();
   return (
     <>
       <li
@@ -57,15 +55,6 @@ export const JeonseCard = ({ protect }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader />
-          {/* <div className="flex justify-end">
-            <div
-              className="rounded-full bg-red-600 w-7 h-7 text-center text-white mt-2 mr-4"
-              onClick={() => {
-                onClose();
-              }}
-            ></div>
-          </div> */}
-
           <DrawerBody>
             <div className="text-3xl font-bold mb-5">{protect.address}</div>
             <KakaoMap
@@ -77,17 +66,13 @@ export const JeonseCard = ({ protect }) => {
             <div
               className="bg-slate-300 w-52 text-center pt-4 pb-4 rounded-lg cursor-pointer font-bold ml-auto mr-auto mb-8 mt-8 text-xl"
               onClick={() => {
-                navigate("/protect/" + id + "/result");
+                navigate("/protect/" + id + "/result/" + protect.atclNo);
                 onClose();
               }}
             >
               예방 결과 보기
             </div>
           </DrawerBody>
-
-          {/* <DrawerFooter>
-            {" "}
-          </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </>

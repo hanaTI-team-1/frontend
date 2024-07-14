@@ -1,9 +1,9 @@
-import JeonseInfo from "./JeonseInfo";
+import { Header } from "./Header";
 
 export default function Recommend() {
   return (
     <>
-      <JeonseInfo />
+      <Header />
     </>
   );
 }

@@ -1,5 +1,4 @@
 export default function JeonseInfo({ protect }) {
-  console.log(protect);
   return (
     <>
       <div className="mt-4 mb-4 text-2xl font-bold">상세 정보</div>
