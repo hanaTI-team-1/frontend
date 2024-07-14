@@ -1,4 +1,4 @@
-import { FaCheck, FaExclamation, FaMagnifyingGlass } from "react-icons/fa6";
+import { FaCheck, FaExclamation } from "react-icons/fa6";
 
 function GreenCheck() {
   return (

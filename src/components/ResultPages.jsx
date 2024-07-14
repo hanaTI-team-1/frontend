@@ -1,9 +1,8 @@
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { checkList } from "./../data/checkList";
 import { Header } from "./Header";
 import PassCard from "./PassCard";
 import { TfiFaceSmile } from "react-icons/tfi";
-import { IoIosArrowDown } from "react-icons/io";
 import InfraChart from "./InfraChart";
 import ResultNav from "./ResultNav";
 import { CheckBtn } from "./Utils";
