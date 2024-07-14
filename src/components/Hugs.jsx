@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import checkHugList from "../data/checkHugList";
+import { GreenCheck, GrayCheck } from "./Utils";
 
 export default function CheckHugBtn() {
   const { isOpen, onOpen, onClose } = useDisclosure();

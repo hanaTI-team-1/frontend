@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function JusoBox({ result }) {
+export default function JusoBox({ result, menu }) {
   const navigate = useNavigate();
 
   const splitJibunAddr = (jibunAddr, bdNm) => {
@@ -13,12 +13,19 @@ export default function JusoBox({ result }) {
       <div
         className="bg-gray-100 w-[650px] rounded-lg pt-6 pb-6 pl-4 pr-4 ml-auto mr-auto mt-5 mb-5 cursor-pointer animate__animated animate__fadeIn"
         onClick={() => {
-          navigate(
-            "/protect/" +
-              splitJibunAddr(result.jibunAddr, result.bdNm) +
-              "+" +
-              result.bdNm
-          );
+          menu === "recommend"
+            ? navigate(
+                "/recommend/" +
+                  splitJibunAddr(result.jibunAddr, result.bdNm) +
+                  "+" +
+                  result.bdNm
+              )
+            : navigate(
+                "/protect/" +
+                  splitJibunAddr(result.jibunAddr, result.bdNm) +
+                  "+" +
+                  result.bdNm
+              );
         }}
       >
         <div className="flex items-center mb-5">

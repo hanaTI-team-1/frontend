@@ -17,7 +17,7 @@ export default function Main() {
           <div className="animate__animated animate__fadeInUp font-bold mt-6 text-6xl">
             예방에서 만나다
           </div>
-          <div className="justify-center absolute bottom-10">
+          <div className="absolute bottom-10">
             <IoIosArrowDown
               className="cursor-pointer"
               size="75"

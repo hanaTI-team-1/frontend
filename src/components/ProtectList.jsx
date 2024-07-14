@@ -60,12 +60,13 @@ export default function ProtectList() {
         </div>
       ) : (
         <>
-          {" "}
           <ul className="animate__animated animate__fadeIn">
             {protectList.map((protect, index) => {
-              return <JeonseCard key={index} protect={protect} />;
+              return (
+                <JeonseCard key={index} protect={protect} isProtect={true} />
+              );
             })}
-          </ul>{" "}
+          </ul>
         </>
       )}
 

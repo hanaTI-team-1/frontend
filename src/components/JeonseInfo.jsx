@@ -1,7 +1,7 @@
 export default function JeonseInfo({ protect }) {
   return (
     <>
-      <div className="mt-4 mb-4 text-2xl font-bold">상세 정보</div>
+      <div className="mt-10 mb-4 text-2xl font-bold">상세 정보</div>
       <div className="w-[450px]">
         <JeonseInfoRaw title={["매물특징"]} content={[protect.atclFetrDesc]} />
         <JeonseInfoRaw

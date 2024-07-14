@@ -13,7 +13,7 @@ import KakaoMap from "./KakaoMap";
 import JeonseInfo from "./JeonseInfo";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const JeonseCard = ({ protect }) => {
+export const JeonseCard = ({ protect, isProtect }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,7 +22,7 @@ export const JeonseCard = ({ protect }) => {
   return (
     <>
       <li
-        className="w-[650px] gap-4 p-2 border shadow-lg cursor-pointer rounded-lg ml-auto mr-auto mb-10"
+        className="w-[650px] gap-4 p-2 border-2 border-blue-500 shadow-lg cursor-pointer rounded-lg ml-auto mr-auto mb-10"
         ref={btnRef}
         onClick={onOpen}
       >
@@ -44,37 +44,42 @@ export const JeonseCard = ({ protect }) => {
           </div>
         </div>
       </li>
-
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-        size="md"
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader />
-          <DrawerBody>
-            <div className="text-3xl font-bold mb-5">{protect.address}</div>
-            <KakaoMap
-              lat={protect.lat}
-              lng={protect.lng}
-              atclNm={protect.atclNm}
-            />
-            <JeonseInfo protect={protect} />
-            <div
-              className="bg-slate-300 w-52 text-center pt-4 pb-4 rounded-lg cursor-pointer font-bold ml-auto mr-auto mb-8 mt-8 text-xl"
-              onClick={() => {
-                navigate("/protect/" + id + "/result/" + protect.atclNo);
-                onClose();
-              }}
-            >
-              예방 결과 보기
-            </div>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+      {isProtect ? (
+        <Drawer
+          isOpen={isOpen}
+          placement="right"
+          onClose={onClose}
+          finalFocusRef={btnRef}
+          size="md"
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader />
+            <DrawerBody>
+              <div className="text-3xl font-bold mt-7 mb-5">
+                {protect.address}
+              </div>
+              <KakaoMap
+                lat={protect.lat}
+                lng={protect.lng}
+                atclNm={protect.atclNm}
+              />
+              <JeonseInfo protect={protect} />
+              <div
+                className="bg-slate-300 w-52 text-center pt-4 pb-4 rounded-lg cursor-pointer font-bold ml-auto mr-auto mb-8 mt-20 text-xl"
+                onClick={() => {
+                  navigate("/protect/" + id + "/result/" + protect.atclNo);
+                  onClose();
+                }}
+              >
+                예방 결과 보기
+              </div>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <> </>
+      )}
     </>
   );
 };
