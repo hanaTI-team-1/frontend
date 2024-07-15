@@ -25,7 +25,7 @@ export default function Protect() {
   return (
     <>
       <Header />
-      <div className="min-h-[475px] flex flex-col justify-end mb-28">
+      <div className="h-[500px] flex flex-col justify-end mb-28">
         <div className="text-center animate__animated animate__fadeInUp">
           <div className="text-4xl">찾으시는 전세 매물이 있나요?</div>
           <div>

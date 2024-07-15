@@ -8,7 +8,7 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import KakaoMap from "./KakaoMap";
 import JeonseInfo from "./JeonseInfo";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,7 +18,7 @@ export const JeonseCard = ({ protect, isProtect }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  console.log();
+
   return (
     <>
       <li

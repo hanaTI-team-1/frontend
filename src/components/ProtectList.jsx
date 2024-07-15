@@ -16,15 +16,16 @@ export default function ProtectList() {
 
   const getProtectList = async () => {
     try {
-      const response = await axios.get(
-        "http://34.64.201.85:8081/api/jeonse/remain",
-        {
-          params: {
-            address: address,
-            aptName: aptName,
-          },
-        }
-      );
+      // const response = await axios.get(
+      //   "http://34.64.201.85:8081/api/jeonse/remain",
+      //   {
+      //     params: {
+      //       address: address,
+      //       aptName: aptName,
+      //     },
+      //   }
+      // );
+      const response = await axios.get("/sample.json");
       setProtectList(response.data.data);
     } catch (error) {
       console.error("Error fetching the protect list:", error);
