@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import { RiMenu3Fill } from "react-icons/ri";
 import { Logo } from "../Logo";
+import { DrawerMenu } from "./DrawerMenu";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 px-2 sm:px-10 lg:px-20 h-16 w-full flex items-center justify-between border-b shadow-lg bg-white">
+    <header className="fixed top-0 pl-7 pr-5 lg:px-20 h-16 w-full flex items-center justify-between border-b shadow-lg bg-white">
       <Logo />
-      <nav className="flex gap-2">
+      <DrawerMenu />
+      <nav className="hidden sm:flex gap-2">
         {/* 클릭하면 /proctect로 이동 */}
         <Link
           to={"/protect"}
@@ -22,7 +25,7 @@ export const Header = () => {
         </Link>
       </nav>
 
-      <span className="py-2 h-10 bg-zinc-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer">
+      <span className="hidden sm:block py-2 h-10 bg-zinc-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer">
         예방레포트
       </span>
     </header>

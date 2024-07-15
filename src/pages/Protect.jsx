@@ -29,18 +29,18 @@ export default function Protect() {
     setIsSearching(false);
   };
   return (
-    <main className="min-h-full pt-36 px-5 flex flex-col items-center bg-gradient-to-tr ">
+    <main className="min-h-full pt-24 sm:pt-36 px-5 flex flex-col items-center bg-gradient-to-tr ">
       <hgroup>
-        <h1 className="text-2xl sm:text-4xl text-center font-bold sm:font-medium">
+        <h1 className="text-2xl sm:text-4xl text-center font-bold sm:font-medium break-keep">
           찾으시는 전세 매물이 있으신가요?
         </h1>
-        <p className="mt-5 text-sm sm:text-lg text-center">
+        <p className="mt-5 text-sm sm:text-lg text-center break-keep">
           예방은
           <strong className="text-blue-400 text-3xl tracking-wide">
             {" "}
-            24,324{" "}
+            24,324
           </strong>
-          의 전세 매물을 보호하고 있습니다.
+          개<br className="block sm:hidden" /> 의 전세 매물을 보호하고 있습니다.
         </p>
       </hgroup>
       <div className="relative mt-10 sm:mt-20 w-full max-w-[650px]">
@@ -49,14 +49,14 @@ export default function Protect() {
             id="address"
             name="address"
             placeholder="검사하고 싶은 매물의 주소를 입력해주세요"
-            className="pl-12 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
+            className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
           />
-          {/* <button
+          <button
             type="submit"
-            className="h-14 w-14 aspect-square flex items-center justify-center absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
+            className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-1 sm:right-3 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
           >
-            <LuSyringe size={32} />
-          </button> */}
+            <LuSyringe className="text-2xl" />
+          </button>
         </form>
       </div>
       <div className="mt-5 w-full max-w-[600px] flex flex-col">
