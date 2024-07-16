@@ -29,7 +29,7 @@ export default function Protect() {
     setIsSearching(false);
   };
   return (
-    <main className="min-h-full pt-24 sm:pt-36 px-5 flex flex-col items-center bg-gradient-to-tr ">
+    <main className="min-h-full pt-24 sm:pt-36 px-1 sm:px-5 flex flex-col items-center bg-gradient-to-tr ">
       <hgroup>
         <h1 className="text-2xl sm:text-4xl text-center font-bold sm:font-medium break-keep">
           찾으시는 전세 매물이 있으신가요?
@@ -43,7 +43,7 @@ export default function Protect() {
           개<br className="block sm:hidden" /> 의 전세 매물을 보호하고 있습니다.
         </p>
       </hgroup>
-      <div className="relative mt-10 sm:mt-20 w-full max-w-[650px]">
+      <div className="relative px-2 mt-10 sm:mt-20 w-full max-w-[650px]">
         <form onSubmit={handleSearch}>
           <input
             id="address"
@@ -53,7 +53,7 @@ export default function Protect() {
           />
           <button
             type="submit"
-            className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-1 sm:right-3 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
+            className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
           >
             <LuSyringe className="text-2xl" />
           </button>

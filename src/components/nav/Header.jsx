@@ -5,7 +5,7 @@ import { DrawerMenu } from "./DrawerMenu";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 pl-7 pr-5 lg:px-20 h-16 w-full flex items-center justify-between border-b shadow-lg bg-white">
+    <header className="fixed z-20 top-0 pl-7 pr-5 lg:px-20 xl:px-[10%] h-16 w-full flex items-center justify-between border-b shadow-lg bg-white">
       <Logo />
       <DrawerMenu />
       <nav className="hidden sm:flex gap-2">

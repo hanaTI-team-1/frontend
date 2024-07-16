@@ -16,6 +16,9 @@ let checkList = [
     subway: "?",
     mart: "?",
     scroll: 1024,
+    imgUrl: "/icons/house.png",
+    duration: 0.3,
+    delay: 0,
   },
   {
     title: "전세가율",
@@ -24,6 +27,9 @@ let checkList = [
     result: 1, // 확인 완료
     rate: "70%",
     scroll: 2048,
+    imgUrl: "/icons/presentation.png",
+    duration: 0.25,
+    delay: 0.05,
   },
   {
     title: "건축물대장",
@@ -32,6 +38,9 @@ let checkList = [
     result: 3, // 주의 필요 -> 조회 안 될 경우 데이터 어떻게 오는지?
     // 어떤 정보 볼 수 있는지 몰라서 주는대로 프론트에 넣겠음...ㅠ
     scroll: 3096,
+    imgUrl: "/icons/presentation.png",
+    duration: 0.35,
+    delay: 0.1,
   },
   {
     title: "공인중개사",
@@ -39,6 +48,9 @@ let checkList = [
     btn: "자세히보기",
     result: 1, // 확인 완료 -> 조회 안될 경우 데이터 어떻게 오는지?
     scroll: 3096,
+    imgUrl: "/icons/contract.png",
+    duration: 0.35,
+    delay: 0.15,
   },
   {
     title: "등기부등본",
@@ -47,6 +59,9 @@ let checkList = [
     result: 2, // 확인 필요
     // 다운로드 할 수 있는 binary나 url 필요할 듯?
     scroll: 3096,
+    imgUrl: "/icons/stamp.png",
+    duration: 0.4,
+    delay: 0.15,
   },
   {
     title: "보증보험",
@@ -55,6 +70,9 @@ let checkList = [
     result: 2, // 확인 필요
     // 프론트에서 모달 띄울 예정이라 ㄱㅊ
     scroll: 3096,
+    imgUrl: "/icons/to-do-list.png",
+    duration: 0.3,
+    delay: 0.2,
   },
 ];
 

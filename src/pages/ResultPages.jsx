@@ -103,7 +103,7 @@ function Result4() {
     <>
       <div className="flex flex-col h-[1024px] bg-slate-300 ">
         <div className="h-[968px] flex">
-          <ResultNav />
+          {/* <ResultNav /> */}
           <div className="w-full text-center">
             <div className="text-4xl font-black mt-32">
               부동산 거래 필수 요소 4가지
