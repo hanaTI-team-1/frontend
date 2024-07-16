@@ -15,22 +15,22 @@ import { api } from "../lib/api";
 
 export default function Result() {
   const { atclNo } = useParams();
+  const [isPending, setIsPending] = useState(false);
+  const [result, setResult] = useState(null);
   const [count, setCount] = useState(3);
   const [countCheck, setCountCheck] = useState(0);
 
   useEffect(() => {
+    setIsPending(true);
+
     const getInfo = async () => {
       const result = await api.get(`/jeonse/check-list?actlNo=${atclNo}`);
+      setResult(result.data.data);
+      setIsPending(false);
     };
+
+    getInfo();
   }, []);
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setCountCheck((cur) => (count >= countCheck ? cur + 1 : count));
-  //   }, 1000);
-  // }, []);
-
-  // 6rem 6rem
 
   return (
     <>

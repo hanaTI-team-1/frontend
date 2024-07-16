@@ -17,17 +17,9 @@ function App() {
         <Route path="/" element={<PagesOutlet />}>
           <Route path="/protect" element={<Protect />} />
           <Route path="/protect/:id" element={<ProtectList />} />
-<<<<<<< HEAD
-          <Route path="/protect/:id/result/:atclNo" element={<Result />} />
-          <Route path="/recommend" element={<RecommendGu />} />
-          <Route path="/recommend/:gu" element={<RecommendDong />} />
-          <Route path="/recommend/:gu/:dong" element={<RecommendOpt />} />
-          {/* <Route path="/recommend/:address/" element={<RecommendOpt />} />
-=======
           <Route path="/protect/result/:atclNo" element={<Result />} />
           <Route path="/recommend" element={<RecommendAddr />} />
           <Route path="/recommend/:address/" element={<RecommendOpt />} />
->>>>>>> a727ba222963236b3bfaa0df171f50f1e190a3c6
           <Route
             path="/recommend/:address/:options"
             element={<RecommendList />}
@@ -35,7 +27,7 @@ function App() {
           <Route
             path="/recommend/:address/:options/map"
             element={<RecommendMap />}
-          /> */}
+          />
         </Route>
       </Routes>
     </>
