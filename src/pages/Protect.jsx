@@ -1,9 +1,10 @@
-import axios from "axios";
 import { LuSyringe } from "react-icons/lu";
 import { useState } from "react";
 import "animate.css";
 import AddressCard from "../components/card/AddressCard";
 import { AddressCardSkeleton } from "../components/card/AddressCardSkeleton";
+import { Separator } from "../components/Separator";
+import { api } from "../lib/api";
 
 export default function Protect() {
   const [searchResults, setSearchResults] = useState([]);
@@ -18,19 +19,15 @@ export default function Protect() {
     }
 
     setIsSearching(true);
-    const result = await axios.get(
-      `https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI0MDcxMDE2MDc0NjExNDkxMTY=&currentPage=1&countPerPage=100&keyword=${address}&resultType=json`
-    );
-    if (result.status != 200 || result.data.results.juso == null) return;
-    console.log(result.data.results.juso.filter((item) => item.bdNm != ""));
-    setSearchResults(
-      result.data.results.juso.filter((item) => item.bdNm != "")
-    );
+    const result = await api.get(`/jeonse/address?address=${address}`);
+    if (result.status != 200) throw "검색 중 에러 발생";
+    console.log(result);
+    setSearchResults(result.data.data);
     setIsSearching(false);
   };
   return (
     <main className="min-h-full w-full flex justify-center bg-slate-50">
-      <div className="pt-28 w-full max-w-[800px] flex flex-col items-center bg-white border shadow-md">
+      <div className="pt-28 w-full max-w-[800px] flex flex-col items-center bg-white border-l border-r shadow-md">
         <h1 className="text-center text-4xl font-semibold">
           찾으시는 전세 매물이 있으신가요?
         </h1>
@@ -59,9 +56,9 @@ export default function Protect() {
             </button>
           </form>
         </div>
-        <div className="mt-5 w-full max-w-[600px] flex flex-col">
-          <div className="w-full border-[0.5px] mb-5" />
-          <ul className="p-5 w-full space-y-5 h-[550px] overflow-y-auto">
+        <Separator margin={20} />
+        <div className="w-full">
+          <ul className="px-20 w-full space-y-5 max-h-[calc(100vh-23.5rem)] overflow-y-auto">
             {isSearching ? (
               <>
                 <AddressCardSkeleton />
@@ -69,7 +66,11 @@ export default function Protect() {
               </>
             ) : (
               searchResults.map((item, idx) => (
-                <AddressCard key={idx} result={item} />
+                <AddressCard
+                  key={idx}
+                  address={item.address}
+                  buildingName={item.atclNm}
+                />
               ))
             )}
             {!isSearching && searchResults.length == 0 && (

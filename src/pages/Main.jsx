@@ -26,8 +26,8 @@ export default function Main() {
   if (!isLoaded) return <div>히</div>;
 
   return (
-    <main className="min-h-full w-full flex justify-center bg-slate-50">
-      <div className="max-w-[800px] w-full bg-white border shadow-md">
+    <main className="min-h-full w-full flex justify-center bg-zinc-800">
+      <div className="max-w-[800px] w-full bg-white">
         <section className="relative min-h-[600px] h-full">
           <Suspense fallback={<div>영상 처리중</div>}>
             <img

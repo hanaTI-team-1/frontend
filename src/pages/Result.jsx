@@ -5,23 +5,32 @@ import { checkList } from "../data/checkList";
 import PassCard from "../components/PassCard";
 import { PassCard2 } from "../components/card/PassCard2";
 import InfraChart from "../components/InfraChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { CheckBtn } from "../components/Utils";
 import CheckHugBtn from "../components/Hugs";
 import { Separator } from "../components/Separator";
 import ResultNav from "../components/nav/ResultNav";
+import { api } from "../lib/api";
 
 export default function Result() {
   const { atclNo } = useParams();
   const [count, setCount] = useState(3);
   const [countCheck, setCountCheck] = useState(0);
 
+  useEffect(() => {
+    const getInfo = async () => {
+      const result = await api.get(`/jeonse/check-list?actlNo=${atclNo}`);
+    };
+  }, []);
+
   // useEffect(() => {
   //   setInterval(() => {
   //     setCountCheck((cur) => (count >= countCheck ? cur + 1 : count));
   //   }, 1000);
   // }, []);
+
+  // 6rem 6rem
 
   return (
     <>

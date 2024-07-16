@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import KakaoMap from "../KakaoMap";
 import { useRef } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export const JeonseCard2 = ({ info, url }) => {
   console.log(info);
@@ -23,13 +24,13 @@ export const JeonseCard2 = ({ info, url }) => {
 
   return (
     <li
-      className="w-full h-32 py-5 px-10 flex justify-between rounded-xl shadow-lg bg-slate-50 border hover:bg-slate-100 duration-200 cursor-pointer"
+      className="w-full h-32 py-5 px-10 flex justify-between shadow-lg bg-gray-100 hover:bg-gray-200 duration-200 rounded-md cursor-pointer"
       ref={btnRef}
       onClick={onOpen}
     >
       <div className="flex gap-10">
         <div className="h-full w-24 flex items-center justify-center">
-          <div className="h-16 w-16 flex items-center justify-center rounded-lg bg-gray-200">
+          <div className="h-16 w-16 flex items-center justify-center rounded-lg bg-white shadow-sm">
             <MdApartment className="text-blue-400" size={48} />
           </div>
         </div>
@@ -59,25 +60,47 @@ export const JeonseCard2 = ({ info, url }) => {
           <DrawerBody>
             <KakaoMap lat={info.lat} lng={info.lng} atclNm={info.atclNm} />
             <div>
-              <span className="text-lg">{info.address}</span>
-              <ul className="mt-5 space-y-1">
+              <div className="pt-3 pb-2 flex items-center gap-2 w-full text-lg font-medium">
+                <FaMapMarkerAlt className="text-blue-400" />
+                {info.address}
+              </div>
+              <ul className="border rounded">
                 <li className="grid grid-cols-10 gap-2">
-                  <span className="col-span-2 text-right">특징</span>
-                  <span className="col-span-8">{info.atclFetrDesc}</span>
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    특징
+                  </span>
+                  <span className="py-2 col-span-8 text-sm">
+                    {info.atclFetrDesc}
+                  </span>
                 </li>
-                <li className="grid grid-cols-10 gap-2">
-                  <span className="col-span-2 text-right">방향</span>
-                  <span className="col-span-8">{info.direction}</span>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    방향
+                  </span>
+                  <span className="py-2 col-span-8">{info.direction}</span>
                 </li>
-                <li className="grid grid-cols-10 gap-2">
-                  <span className="col-span-2 text-right">가격</span>
-                  <span className="col-span-8">{info.hanPrc}</span>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    가격
+                  </span>
+                  <span className="py-2 col-span-8">{info.hanPrc}</span>
                 </li>
-                <li className="grid grid-cols-10 gap-2">
-                  <span className="col-span-2 text-right">주거형태</span>
-                  <span className="col-span-8">{info.rletTpNm}</span>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    주거형태
+                  </span>
+                  <span className="py-2 col-span-8">{info.rletTpNm}</span>
                 </li>
               </ul>
+            </div>
+            <div className="pt-2 text-sm opacity-70 flex items-center justify-end gap-2">
+              네이버 부동산 정보
+              <img
+                src="/icons/seoul-city.svg"
+                width={16}
+                height={16}
+                alt="seoul"
+              />
             </div>
           </DrawerBody>
 
