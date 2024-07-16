@@ -13,7 +13,7 @@ export const Separator = ({ margin }) => {
           opacity: 1,
           transition: { duration: 0.2, delay: 0.2, ease: "easeInOut" },
         }}
-        className="w-4/5 h-0.5 bg-neutral-400"
+        className="w-4/5 border-t"
       />
     </div>
   );

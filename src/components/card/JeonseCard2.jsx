@@ -1,56 +1,116 @@
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { MdApartment } from "react-icons/md";
 import {
+  Button,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import KakaoMap from "../KakaoMap";
+import { useRef } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
-export const JeonseCard2 = ({ info }) => {
+export const JeonseCard2 = ({ info, url }) => {
   console.log(info);
-  const { id } = useParams();
-  const navigate = useNavigate();
+  console.log(info.address);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+  const btnRef = useRef();
 
   return (
     <li
-      className="w-full h-36 py-5 px-10 flex gap-10 rounded-xl shadow-lg bg-slate-50 border"
+      className="w-full h-32 py-5 px-10 flex justify-between shadow-lg bg-gray-100 hover:bg-gray-200 duration-200 rounded-md cursor-pointer"
       ref={btnRef}
       onClick={onOpen}
     >
-      <div className="h-full w-24 flex items-center justify-center bg-rose-300">
-        <div className="h-16 w-16 flex items-center justify-center rounded-lg bg-gray-100">
-          <MdApartment className="text-blue-400" size={48} />
+      <div className="flex gap-10">
+        <div className="h-full w-24 flex items-center justify-center">
+          <div className="h-16 w-16 flex items-center justify-center rounded-lg bg-white shadow-sm">
+            <MdApartment className="text-blue-400" size={48} />
+          </div>
         </div>
+        <hgroup className="flex flex-col gap-1">
+          <span className="text-2xl font-bold">
+            {info.atclNm} {info.bildNm}
+          </span>
+          <span className="font-medium text-lg">{info.hanPrc}원</span>
+          <span className="opacity-70">{info.spc2 + "평"}</span>
+        </hgroup>
       </div>
-      <hgroup className="flex flex-col">
-        <span className="text-2xl font-bold">{info.atclNm}</span>
-        <span className="font-medium text-lg">{info.hanPrc}원</span>
-        <span className="opacity-70">{info.spc2 + "평"}</span>
-      </hgroup>
-      {/* <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <div className="h-20 w-20 flex items-center justify-center bg-slate-200 rounded-lg">
-            <MdApartment size={48} />
-          </div>
-          <div className="ml-5 flex flex-col">
-            <span className="font-bold text-lg">{protect.address}</span>
-            <span className="text-xs opacity-40">
-              {protect.atclNm + " " + protect.spc2 + "평"}
-            </span>
-            <span className="font-bold text-lg">{protect.hanPrc}원</span>
-          </div>
-        </div>
-        <div className="mr-5">
-          <IoIosArrowDroprightCircle size={48} className="text-gray-500" />
-        </div>
-      </div> */}
+      <div className="h-full flex items-center">
+        <IoIosArrowDroprightCircle size={48} className="text-gray-500" />
+      </div>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        size={"md"}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>전세 상세 정보</DrawerHeader>
+
+          <DrawerBody>
+            <KakaoMap lat={info.lat} lng={info.lng} atclNm={info.atclNm} />
+            <div>
+              <div className="pt-3 pb-2 flex items-center gap-2 w-full text-lg font-medium">
+                <FaMapMarkerAlt className="text-blue-400" />
+                {info.address}
+              </div>
+              <ul className="border rounded">
+                <li className="grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    특징
+                  </span>
+                  <span className="py-2 col-span-8 text-sm">
+                    {info.atclFetrDesc}
+                  </span>
+                </li>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    방향
+                  </span>
+                  <span className="py-2 col-span-8">{info.direction}</span>
+                </li>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    가격
+                  </span>
+                  <span className="py-2 col-span-8">{info.hanPrc}</span>
+                </li>
+                <li className="border-t grid grid-cols-10 gap-2">
+                  <span className="p-2 col-span-2 text-right bg-slate-100">
+                    주거형태
+                  </span>
+                  <span className="py-2 col-span-8">{info.rletTpNm}</span>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-2 text-sm opacity-70 flex items-center justify-end gap-2">
+              네이버 부동산 정보
+              <img
+                src="/icons/seoul-city.svg"
+                width={16}
+                height={16}
+                alt="seoul"
+              />
+            </div>
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Link to={url} className="w-full">
+              <Button className="w-full py-10">예방 결과 보러가기</Button>
+            </Link>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </li>
   );
 };
