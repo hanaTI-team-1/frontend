@@ -1,173 +1,172 @@
-import { useState } from "react";
-import "animate.css";
-import { FaSchool } from "react-icons/fa6";
-import { MdLocalPolice } from "react-icons/md";
-import { HiBuildingStorefront } from "react-icons/hi2";
-import { MdLocalGroceryStore } from "react-icons/md";
-import { FaSubway } from "react-icons/fa";
-import { FaBus } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import {
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+} from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
+// RecommendOption 컴포넌트 정의
+function RecommendOption({ title, defaultValue, onChange }) {
+  const [range, setRange] = useState(defaultValue); // 초기 범위 값 설정
+
+  const handleChange = (newRange) => {
+    // newRange가 현재 range와 같으면 이동하지 않도록 처리
+    if (newRange[0] !== range[0]) {
+      setRange(newRange);
+      onChange(newRange); // 부모 컴포넌트로 범위 변경을 전달
+    }
+  };
+
+  return (
+    <div className="w-[400px] flex justify-center items-center mb-10">
+      <div className="w-[100px] mr-5">
+        <div className="text-xl font-semibold">{title}</div>
+      </div>
+      <div className="w-[300px]">
+        <RangeSlider
+          value={range}
+          min={1}
+          max={3}
+          step={1}
+          onChange={handleChange}
+        >
+          <RangeSliderTrack bg="#3388ff">
+            <RangeSliderFilledTrack bg="#D6E7FF" />
+          </RangeSliderTrack>
+          <RangeSliderThumb boxSize={6} index={0} bg="#D4D4D8" />
+        </RangeSlider>
+      </div>
+    </div>
+  );
+}
+
+// RecommendOpt 컴포넌트
 export default function RecommendOpt() {
-  const { address } = useParams();
+  const { gu, dong } = useParams();
   const navigate = useNavigate();
 
   const [price, setPrice] = useState(0);
-  const [school, setSchool] = useState(false);
-  const [chiAn, setChiAn] = useState(false);
-  const [gs25, setGs25] = useState(false);
-  const [bus, setBus] = useState(false);
-  const [subway, setSubway] = useState(false);
-  const [mart, setMart] = useState(false);
+  const [hanPrice, setHanPrice] = useState("");
 
-  function getKoreanNumber(number) {
+  // 각 항목에 대한 초기 범위 값 설정
+  const [policeStationsRange, setPoliceStationsRange] = useState([1, 3]);
+  const [groceriesRange, setGroceriesRange] = useState([1, 3]);
+  const [schoolsRange, setSchoolsRange] = useState([1, 3]);
+  const [busStationsRange, setBusStationsRange] = useState([1, 3]);
+  const [subwayStationsRange, setSubwayStationsRange] = useState([1, 3]);
+
+  // 범위 변경 시 처리 함수
+  const handlePoliceStationsChange = (newRange) => {
+    setPoliceStationsRange(newRange);
+  };
+
+  const handleGroceriesChange = (newRange) => {
+    setGroceriesRange(newRange);
+  };
+
+  const handleSchoolsChange = (newRange) => {
+    setSchoolsRange(newRange);
+  };
+
+  const handleBusStationsChange = (newRange) => {
+    setBusStationsRange(newRange);
+  };
+
+  const handleSubwayStationsChange = (newRange) => {
+    setSubwayStationsRange(newRange);
+  };
+
+  const getKoreanNumber = (price) => {
+    setPrice(price);
+    let number = price;
     const koreanUnits = ["조", "억", "만", ""];
     const unit = 10000;
-    let answer = "";
+    let result = "";
 
     while (number > 0) {
       const mod = number % unit;
       const modToString = mod.toString().replace(/(\d)(\d{3})/, "$1,$2");
       number = Math.floor(number / unit);
-      answer = `${modToString}${koreanUnits.pop()}${answer}`;
+      result = `${modToString}${koreanUnits.pop()}${result}`;
     }
-    return answer;
-  }
+
+    setHanPrice(result);
+  };
 
   return (
     <>
-      {/* <div className="min-h-[475px] flex flex-col justify-end mb-7">
-        <div className="text-center animate__animated animate__fadeInUp">
-          <div className="text-4xl">
-            <span className="font-bold">예방AI</span>가 매물을 추천드립니다.
+      <main className="min-h-full w-full flex justify-center bg-slate-50">
+        <div className="pt-28 w-full max-w-[800px] flex flex-col items-center bg-white border shadow-md">
+          <h1 className="text-center text-4xl font-semibold">
+            <span className="font-black">예방AI</span>가 전세 매물을 추천해줘요!
+          </h1>
+          <p className="mt-3 text-sm sm:text-lg text-center break-keep">
+            원하시는 금액과 인프라를 선택해주세요
+          </p>
+          <p className="text-md sm:text-xl text-center break-keep text-blue-400 font-semibold">
+            {gu} {dong}
+          </p>
+          <div className="relative px-2 mt-10 w-full max-w-[650px]">
+            <form>
+              <input
+                id="price"
+                name="price"
+                autoComplete="off"
+                onChange={(e) => {
+                  getKoreanNumber(e.target.value);
+                }}
+                placeholder="원하시는 금액을 입력해주세요"
+                className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
+              />
+              <span className="sm:w-20 sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
+                {hanPrice}
+              </span>
+              <button
+                type="submit"
+                className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md hidden"
+              ></button>
+            </form>
           </div>
-          <div className="mt-2 font-semibold font-md text-xl">
-            원하시는 금액과 인프라를 입력해주세요
-          </div>
-        </div>
-        <div className="flex items-center justify-center mt-10 relative animate__animated animate__fadeInUp">
-          <div className="relative w-[650px]">
-            <input
-              type="text"
-              placeholder="금액을 입력해주세요"
-              className="border-2 w-full h-20 rounded-full px-2 pl-7 text-xl pr-16 shadow-md shadow-slate-300"
-              onChange={(e) => {
-                setPrice(e.target.value);
-              }}
+          <div className="flex flex-col justify-center items-center w-[800px] mt-10">
+            {/* 각 항목별 RecommendOption 컴포넌트 사용 */}
+            <RecommendOption
+              title="치안"
+              defaultValue={policeStationsRange}
+              onChange={handlePoliceStationsChange}
             />
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-4 p-3 shadow-mdcursor-pointer bg-white text-gray-500">
-              {getKoreanNumber(price)}
+            <RecommendOption
+              title="편의점"
+              defaultValue={groceriesRange}
+              onChange={handleGroceriesChange}
+            />
+            <RecommendOption
+              title="학교"
+              defaultValue={schoolsRange}
+              onChange={handleSchoolsChange}
+            />
+            <RecommendOption
+              title="버스"
+              defaultValue={busStationsRange}
+              onChange={handleBusStationsChange}
+            />
+            <RecommendOption
+              title="지하철"
+              defaultValue={subwayStationsRange}
+              onChange={handleSubwayStationsChange}
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <div
+              className="rounded-lg bg-blue-400 pl-10 pr-10 pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+              onClick={() => {}}
+            >
+              추천 받기
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-[650px] mx-auto pl-5 text-2xl mb-8 flex items-center animate__animated animate__fadeInUp">
-        <div className="w-5 h-5 rounded-full bg-slate-500"></div>
-        <div className="pl-5">{address.split("+")[0]}</div>
-      </div>
-      <div className="w-[650px] flex justify-evenly mx-auto animate__animated animate__fadeInUp">
-        <div
-          onClick={() => {
-            setSchool(!school);
-          }}
-        >
-          <InfraBtn title={"학교"} isChecked={school} />
-        </div>
-        <div
-          onClick={() => {
-            setChiAn(!chiAn);
-          }}
-        >
-          <InfraBtn title={"치안"} isChecked={chiAn} />
-        </div>
-        <div
-          onClick={() => {
-            setGs25(!gs25);
-          }}
-        >
-          <InfraBtn title={"편의점"} isChecked={gs25} />
-        </div>
-        <div
-          onClick={() => {
-            setMart(!mart);
-          }}
-        >
-          <InfraBtn title={"마트"} isChecked={mart} />
-        </div>
-        <div
-          onClick={() => {
-            setSubway(!subway);
-          }}
-        >
-          <InfraBtn title={"지하철"} isChecked={subway} />
-        </div>
-        <div
-          onClick={() => {
-            setBus(!bus);
-          }}
-        >
-          <InfraBtn title={"버스"} isChecked={bus} />
-        </div>
-      </div>
-      <div className="flex justify-center mt-20">
-        <div
-          className="pl-3 pr-3 bg-gray-400 w-32 h-10 rounded-xl flex justify-center items-center text-white cursor-pointer"
-          onClick={() => {
-            navigate(
-              `/recommend/${address}/${price}+${school}+${chiAn}+${gs25}+${mart}+${subway}+${bus}`
-            );
-          }}
-        >
-          추천받기
-        </div>
-      </div> */}
+      </main>
     </>
-  );
-}
-
-function InfraBtn({ title, isChecked }) {
-  return isChecked ? (
-    <CheckedInfraBtn title={title} />
-  ) : (
-    <UnCheckedInfraBtn title={title} />
-  );
-}
-
-function UnCheckedInfraBtn({ title }) {
-  return (
-    <div className="shadow-lg w-24 h-12 rounded-2xl border-blue-200 border-2 flex items-center cursor-pointer">
-      <div className="ml-2 mr-1">
-        {
-          {
-            학교: <FaSchool size="25" />,
-            치안: <MdLocalPolice size="25" />,
-            편의점: <HiBuildingStorefront size="25" />,
-            마트: <MdLocalGroceryStore size="25" />,
-            지하철: <FaSubway size="25" />,
-            버스: <FaBus size="25" />,
-          }[title]
-        }
-      </div>
-      <div className="leading-4 w-full text-center">{title}</div>
-    </div>
-  );
-}
-function CheckedInfraBtn({ title }) {
-  return (
-    <div className="shadow-lg w-24 h-12 rounded-2xl bg-blue-100 border-blue-200 border-2 flex items-center cursor-pointer">
-      <div className="ml-2 mr-1">
-        {
-          {
-            학교: <FaSchool size="25" />,
-            치안: <MdLocalPolice size="25" />,
-            편의점: <HiBuildingStorefront size="25" />,
-            마트: <MdLocalGroceryStore size="25" />,
-            지하철: <FaSubway size="25" />,
-            버스: <FaBus size="25" />,
-          }[title]
-        }
-      </div>
-      <div className="leading-4 w-full text-center">{title}</div>
-    </div>
   );
 }
