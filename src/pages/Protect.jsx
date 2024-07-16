@@ -29,9 +29,9 @@ export default function Protect() {
     setIsSearching(false);
   };
   return (
-    <main className="min-h-full pt-24 sm:pt-36 px-1 sm:px-5 flex flex-col items-center bg-gradient-to-tr ">
-      <hgroup>
-        <h1 className="text-2xl sm:text-4xl text-center font-bold sm:font-medium break-keep">
+    <main className="min-h-full w-full flex justify-center bg-slate-50">
+      <div className="pt-28 w-full max-w-[800px] flex flex-col items-center bg-white border shadow-md">
+        <h1 className="text-center text-4xl font-semibold">
           찾으시는 전세 매물이 있으신가요?
         </h1>
         <p className="mt-5 text-sm sm:text-lg text-center break-keep">
@@ -42,40 +42,41 @@ export default function Protect() {
           </strong>
           개<br className="block sm:hidden" /> 의 전세 매물을 보호하고 있습니다.
         </p>
-      </hgroup>
-      <div className="relative px-2 mt-10 sm:mt-20 w-full max-w-[650px]">
-        <form onSubmit={handleSearch}>
-          <input
-            id="address"
-            name="address"
-            placeholder="검사하고 싶은 매물의 주소를 입력해주세요"
-            className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
-          >
-            <LuSyringe className="text-2xl" />
-          </button>
-        </form>
-      </div>
-      <div className="mt-5 w-full max-w-[600px] flex flex-col">
-        <div className="w-full border-[0.5px] mb-5" />
-        <ul className="p-5 w-full space-y-5 h-[450px] overflow-y-auto">
-          {isSearching ? (
-            <>
-              <AddressCardSkeleton />
-              <AddressCardSkeleton />
-            </>
-          ) : (
-            searchResults.map((item, idx) => (
-              <AddressCard key={idx} result={item} />
-            ))
-          )}
-          {!isSearching && searchResults.length == 0 && (
-            <p className="text-center opacity-70">검색된 결과가 없습니다.</p>
-          )}
-        </ul>
+        <div className="relative px-2 mt-10 w-full max-w-[650px]">
+          <form onSubmit={handleSearch}>
+            <input
+              id="address"
+              name="address"
+              autoComplete="off"
+              placeholder="검사하고 싶은 매물의 주소를 입력해주세요"
+              className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md"
+            >
+              <LuSyringe className="text-2xl" />
+            </button>
+          </form>
+        </div>
+        <div className="mt-5 w-full max-w-[600px] flex flex-col">
+          <div className="w-full border-[0.5px] mb-5" />
+          <ul className="p-5 w-full space-y-5 h-[550px] overflow-y-auto">
+            {isSearching ? (
+              <>
+                <AddressCardSkeleton />
+                <AddressCardSkeleton />
+              </>
+            ) : (
+              searchResults.map((item, idx) => (
+                <AddressCard key={idx} result={item} />
+              ))
+            )}
+            {!isSearching && searchResults.length == 0 && (
+              <p className="text-center opacity-70">검색된 결과가 없습니다.</p>
+            )}
+          </ul>
+        </div>
       </div>
     </main>
   );
