@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   RangeSlider,
   RangeSliderTrack,
@@ -109,25 +109,23 @@ export default function RecommendOpt() {
             {gu} {dong}
           </p>
           <div className="relative px-2 mt-10 w-full max-w-[650px]">
-            <form>
-              <input
-                id="price"
-                name="price"
-                autoComplete="off"
-                onChange={(e) => {
-                  getKoreanNumber(e.target.value);
-                }}
-                placeholder="원하시는 금액을 입력해주세요"
-                className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
-              />
-              <span className="sm:w-20 sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
-                {hanPrice}
-              </span>
-              <button
-                type="submit"
-                className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md hidden"
-              ></button>
-            </form>
+            <input
+              id="price"
+              name="price"
+              autoComplete="off"
+              onChange={(e) => {
+                getKoreanNumber(e.target.value);
+              }}
+              placeholder="원하시는 금액을 입력해주세요"
+              className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
+            />
+            <span className="sm:w-20 sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
+              {hanPrice}
+            </span>
+            <button
+              type="submit"
+              className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md hidden"
+            ></button>
           </div>
           <div className="flex flex-col justify-center items-center w-[800px] mt-10">
             {/* 각 항목별 RecommendOption 컴포넌트 사용 */}
@@ -159,8 +157,12 @@ export default function RecommendOpt() {
           </div>
           <div className="flex justify-center items-center">
             <div
-              className="rounded-lg bg-blue-400 pl-10 pr-10 pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
-              onClick={() => {}}
+              className="rounded-lg bg-blue-400 pl-20 pr-20 pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+              onClick={() => {
+                navigate(
+                  `/recommend/${gu}/${dong}/list?price=${price}&policeStation=${policeStationsRange[0]}&groceries=${groceriesRange[0]}&schools=${schoolsRange[0]}&busStations=${busStationsRange[0]}&subwayStations=${subwayStationsRange[0]}`
+                );
+              }}
             >
               추천 받기
             </div>

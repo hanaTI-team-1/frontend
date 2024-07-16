@@ -11,6 +11,10 @@ export default function ProtectList() {
   const [isLoading, setIsLoading] = useState(false);
   const { id: address } = useParams();
   let [_bdNm] = useSearchParams("bdNm");
+
+  let price = useSearchParams("price");
+  console.log(price);
+
   const bdNm = decodeURI(decodeURIComponent(_bdNm));
 
   useEffect(() => {

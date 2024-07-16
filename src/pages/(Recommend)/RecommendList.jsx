@@ -1,66 +1,84 @@
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { JeonseCard } from "../../components/JeonseCard";
+import { useParams, useSearchParams } from "react-router-dom";
+import { api } from "../../lib/api";
+import { Separator } from "../../components/Separator";
+import { JeonseCard2 } from "../../components/card/JeonseCard2";
+import axios from "axios";
 
 export default function RecommendList() {
-  const navigate = useNavigate();
-  const { address, options } = useParams();
-  let [price, school, chiAn, gs25, mart, subway, bus] = options.split("+");
+  const { dong } = useParams();
+  const [searchParams] = useSearchParams();
 
-  let [addressN, aptName] = address.split("+");
-  addressN = addressN.replace("서울특별시", "서울");
-  const [protectList, setProtectList] = useState([]);
+  const price = searchParams.get("price");
+  const policeStation = searchParams.get("policeStation");
+  const groceries = searchParams.get("groceries");
+  const schools = searchParams.get("schools");
+  const busStations = searchParams.get("busStations");
+  const subwayStations = searchParams.get("subwayStations");
 
-  const getProtectList = async () => {
-    try {
-      const response = await axios.get("/sample.json");
-      setProtectList(response.data.data);
-    } catch (error) {
-      console.error("Error fetching the protect list:", error);
-    }
-  };
+  const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getProtectList();
+    setIsLoading(true);
+    const params = {
+      dongName: dong,
+      policeOffice: policeStation,
+      subway: subwayStations,
+      school: schools,
+      mart: groceries,
+      bus: busStations,
+      price: price / 10000,
+    };
+
+    const getResult = async () => {
+      try {
+        // const response = await axios.post(
+        //   "http://34.64.53.101:8081/api/jeonse/recommend",
+        //   params
+        // );
+        const response = await axios.get("/recommend.json");
+        console.log(response.data);
+        setResult(response.data.data);
+      } catch (error) {
+        console.error("Error fetching recommendation:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getResult();
   }, []);
 
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
+
+  if (isLoading) return <div>히</div>;
+
   return (
-    <>
-      <Header />
-      <div className="min-h-[475px] flex flex-col justify-end pb-10 mb-10">
-        <div className="text-center animate__animated animate__fadeInUp">
-          <div className="text-4xl">
-            <span className="font-bold">예방AI</span>가 매물을 추천드립니다
-          </div>
-          <div className="mt-2 font-semibold font-md text-xl">결과입니다</div>
-        </div>
+    <main className="min-h-full h-full flex flex-col items-center bg-slate-50">
+      <div className="min-h-full pt-28 px-0 max-w-[800px] w-full bg-white border-r border-l shadow-md">
+        <h1 className="text-center text-4xl font-semibold">
+          전세 매물을 찾았습니다
+        </h1>
+        <h2 className="mt-3 text-center text-2xl font-medium">
+          총 <strong className="text-blue-400">{result.length}</strong> 건의
+          매물이 검색되었습니다
+        </h2>
+        <Separator margin={20} />
+        <section className="px-20 max-h-[calc(100vh-15rem)] overflow-y-auto">
+          <ul className="space-y-7">
+            {result.map((item, index) => (
+              <JeonseCard2
+                info={item.jeonse}
+                key={index}
+                // url={`/protect/result/${item.atclNo}`}
+              />
+            ))}
+          </ul>
+        </section>
       </div>
-      <ul className="animate__animated animate__fadeIn">
-        {protectList.map((protect, index) => {
-          return <JeonseCard key={index} protect={protect} isProtect={false} />;
-        })}
-      </ul>
-      <div className="w-[650px] flex text-lg font-medium justify-between mx-auto">
-        <div
-          className="text-center w-48 pt-2 pb-2 bg-slate-200 rounded-xl cursor-pointer"
-          onClick={() => {
-            navigate("/recommend");
-          }}
-        >
-          추천으로 돌아가기
-        </div>
-        <div
-          className="text-center w-48 pt-2 pb-2 border-2 border-blue-500 rounded-xl cursor-pointer"
-          onClick={() => {
-            navigate(
-              `/recommend/${address}/${price}+${school}+${chiAn}+${gs25}+${mart}+${subway}+${bus}/map`
-            );
-          }}
-        >
-          자세히보기
-        </div>
-      </div>
-    </>
+    </main>
   );
 }
