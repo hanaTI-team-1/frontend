@@ -8,7 +8,7 @@ export default function AddressCard({ address, buildingName }) {
     <li>
       <Link
         to={`/protect/${address}?bdNm=${buildingName}`}
-        className="h-[6.5rem] px-4 w-full flex justify-between bg-gray-100 hover:bg-gray-200 duration-200 rounded-lg cursor-pointer"
+        className="h-[6.5rem] px-4 w-full flex justify-between bg-gray-100 hover:bg-gray-200 duration-200 group rounded-lg cursor-pointer"
       >
         <div className="h-full flex flex-col justify-evenly">
           <div className="flex items-center">
@@ -28,8 +28,11 @@ export default function AddressCard({ address, buildingName }) {
             </div>
           </div>
         </div>
-        <div className="hidden sm:flex h-full items-center">
-          <FaAngleRight size={32} className="opacity-60" />
+        <div className="hidden sm:flex h-full items-center group-hover:translate-x-2 duration-300">
+          <FaAngleRight
+            size={32}
+            className="duration-300 text-gray-500 group-hover:text-blue-400"
+          />
         </div>
       </Link>
     </li>

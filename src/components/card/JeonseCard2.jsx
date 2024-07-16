@@ -24,7 +24,7 @@ export const JeonseCard2 = ({ info, url }) => {
 
   return (
     <li
-      className="w-full h-32 py-5 px-10 flex justify-between shadow-lg bg-gray-100 hover:bg-gray-200 duration-200 rounded-md cursor-pointer"
+      className="w-full h-32 py-5 px-10 flex justify-between shadow-lg bg-gray-100 hover:bg-gray-200 duration-200 rounded-md cursor-pointer group"
       ref={btnRef}
       onClick={onOpen}
     >
@@ -42,8 +42,11 @@ export const JeonseCard2 = ({ info, url }) => {
           <span className="opacity-70">{info.spc2 + "평"}</span>
         </hgroup>
       </div>
-      <div className="h-full flex items-center">
-        <IoIosArrowDroprightCircle size={48} className="text-gray-500" />
+      <div className="transition duration-300 group-hover:translate-x-2 h-full flex items-center">
+        <IoIosArrowDroprightCircle
+          size={48}
+          className="duration-300 text-gray-500 group-hover:text-blue-400"
+        />
       </div>
       <Drawer
         isOpen={isOpen}

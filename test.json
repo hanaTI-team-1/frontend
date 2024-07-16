@@ -1,0 +1,73 @@
+{
+  "atclNo": "2432402517",
+  "cortarNo": "1150010500",
+  "atclNm": "신안(422)",
+  "atclStatCd": "R0",
+  "rletTpCd": "A01",
+  "uprRletTpCd": "A01",
+  "rletTpNm": "아파트",
+  "tradTpCd": "B1",
+  "tradTpNm": "전세",
+  "vrfcTpCd": "OWNER",
+  "flrInfo": "5/11",
+  "prc": 40000,
+  "rentPrc": 0,
+  "hanPrc": "4억",
+  "spc1": "81",
+  "spc2": "59.98",
+  "direction": "남향",
+  "atclCfmYmd": "24.07.02.",
+  "repImgUrl": "",
+  "repImgTpCd": "",
+  "repImgThumb": "",
+  "lat": 37.56872,
+  "lng": 126.82344,
+  "atclFetrDesc": "남향집이고 마곡나루역9호선,5호선예정인천공항철도7분거리 상권좋음",
+  "tag1": "25년이상",
+  "tag2": "융자금없는",
+  "tag3": "역세권",
+  "bildNm": "102동",
+  "minute": "0",
+  "sameAddrCnt": 2,
+  "sameAddrDirectCnt": 0,
+  "cpid": "bizmk",
+  "cpNm": "매경부동산",
+  "cpCnt": 1,
+  "rltrNm": "우미린단지내원주민부동산공인중개사사무소",
+  "sellrNm": "",
+  "directTradYn": "N",
+  "minMviFee": 0,
+  "maxMviFee": 0,
+  "etRoomCnt": 0,
+  "tradePriceHan": "",
+  "tradeRentPrice": 0,
+  "tradeCheckedByOwner": "false",
+  "cpLinkVO": "",
+  "dtlAddrYn": "N",
+  "dtlAddr": "",
+  "address": "서울 강서구 마곡동 422-0",
+  "jeonseRate": {
+    "success": true,
+    "salePrice": 40000,
+    "jeonseSaleRate": 51.0
+  },
+  "builderLedger": {
+    "success": true,
+    "information": "주요 용도: 공동주택 | 기타 용도: 아파트"
+  },
+  "certifiedRealEstateAgent": {
+    "success": true,
+    "licensedRealEstateAgent": "우미린단지내원주민부동산공인중개사사무소"
+  },
+  "appropriateJeonsePrice": {
+    "success": true,
+    "jeonsePrice": 42923,
+    "infrastructureNum": {
+      "school": 3,
+      "publicSecurity": 1,
+      "busStop": 23,
+      "subway": 0,
+      "mart": 2
+    }
+  }
+}

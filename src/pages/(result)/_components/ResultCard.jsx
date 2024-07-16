@@ -3,49 +3,51 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaExclamation } from "react-icons/fa6";
 import { Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { checkList } from "../../../data/checkList";
 
-export default function PassCard({ check }) {
+// 적정 전세가 전세가율 건출물대장 공인중개사
+export const ResultCard = ({ type, success }) => {
   return (
-    <motion.li
+    <motion.article
       initial={{ opacity: 0.2, y: 100 }}
       animate={{
         opacity: 1,
         y: 0,
         transition: {
-          duration: check.duration,
-          delay: check.delay,
+          duration: checkList[type].duration,
+          delay: checkList[type].delay,
         },
       }}
       className={`h-52 w-48 pt-7 px-5 flex flex-col items-center shaow-lg hover:shadow-2xl gap-2 relative rounded-xl duration-200
-        ${check.result == 1 && "bg-blue-200 hover:bg-blue-300"}
-        ${check.result == 2 && "bg-slate-200 hover:bg-slate-300"}
-        ${check.result == 3 && "bg-gray-400 hover:bg-gray-500"}`}
+        ${success && "bg-blue-200 hover:bg-blue-300"}
+        ${!success && "bg-gray-400 hover:bg-gray-500"}`}
+      // ${check.result == 2 && "bg-slate-200 hover:bg-slate-300"}
     >
-      {check.result == 1 && <GreenCheck />}
-      {check.result === 2 && <OrangeTriangle />}
-      {check.result === 3 && <RedX />}
+      {success && <GreenCheck />}
+      {!success && <RedX />}
+      {/* {!success && <OrangeTriangle />} */}
       <img
-        src={check.imgUrl}
+        src={checkList[type].imgUrl}
         width={64}
         height={64}
-        alt={check.imgUrl}
+        alt={checkList[type].imgUrl}
         className="object-contain"
       />
-      <h4 className="tetx-md font-bold text-center">{check.title}</h4>
+      <h4 className="tetx-md font-bold text-center">{checkList[type].title}</h4>
       <div className="text-[0.6rem] text-center opacity-70">
-        {check.content}
+        {checkList[type].content}
       </div>
       <Button
         className="w-full"
         onClick={() => {
-          window.scrollTo({ top: check.scroll, behavior: "smooth" });
+          window.scrollTo({ top: checkList[type].scroll, behavior: "smooth" });
         }}
       >
-        {check.btn}
+        {checkList[type].btn}
       </Button>
-    </motion.li>
+    </motion.article>
   );
-}
+};
 
 export function GreenCheck() {
   return (

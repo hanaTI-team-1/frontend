@@ -58,7 +58,7 @@ export default function Protect() {
         </div>
         <Separator margin={20} />
         <div className="w-full">
-          <ul className="px-20 w-full space-y-5 max-h-[calc(100vh-23.5rem)] overflow-y-auto">
+          <ul className="px-20 w-full space-y-5 min-h-96 max-h-[calc(100vh-23.5rem)] overflow-y-auto">
             {isSearching ? (
               <>
                 <AddressCardSkeleton />
