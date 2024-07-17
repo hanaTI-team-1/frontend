@@ -100,7 +100,7 @@ export default function RecommendDetail({ result }) {
           <ul className="w-full space-y-7 min-h-96 max-h-[calc(100vh-23.5rem)] overflow-y-auto">
             {result.map((item, index) => (
               <JeonseCard3
-                info={item.jeonse}
+                info={item}
                 key={index}
                 isDetail={true}
                 onClick={() => handleCardClick(index)}

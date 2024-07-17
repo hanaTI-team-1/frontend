@@ -5,9 +5,9 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const intervals = [
-      setTimeout(() => setPhase(1), 10000),
-      setTimeout(() => setPhase(2), 20000),
-      setTimeout(() => setPhase(3), 30000),
+      setTimeout(() => setPhase(1), 7500),
+      setTimeout(() => setPhase(2), 15000),
+      setTimeout(() => setPhase(3), 22500),
     ];
 
     return () => intervals.forEach(clearTimeout);
@@ -19,40 +19,52 @@ const LoadingScreen = () => {
         return (
           <div className="content" key={0}>
             <img
-              className="w-44 h-44"
-              src="/smile-girl.jpg"
+              className="w-64 h-64"
+              src="/loading/region.png"
               alt="Loading Phase 1"
             />
-            <p>지역 정보를 분석중이에요</p>
+            <p className="text-xl text-blue-500 font-semibold">
+              지역 정보를 분석중이에요
+            </p>
           </div>
         );
       case 1:
         return (
           <div className="content" key={1}>
             <img
-              className="w-44 h-44"
-              src="/markers/home.png"
+              className="w-64 h-64"
+              src="/loading/price.png"
               alt="Loading Phase 2"
             />
-            <p>적정 가격을 찾아보고 있어요</p>
+            <p className="text-xl text-blue-500 font-semibold">
+              적정 가격을 찾아보고 있어요
+            </p>
           </div>
         );
       case 2:
         return (
           <div className="content" key={2}>
             <img
-              className="w-44 h-44"
-              src="/building.png"
+              className="w-64 h-64"
+              src="/loading/infra.png"
               alt="Loading Phase 3"
             />
-            <p>인프라 정보를 불러오고 있어요</p>
+            <p className="text-xl text-blue-500 font-semibold">
+              인프라 정보를 불러오고 있어요
+            </p>
           </div>
         );
       case 3:
         return (
           <div className="content" key={3}>
-            <img src="/images/phase4.png" alt="Loading Phase 4" />
-            <p>거의 다 됐어요!</p>
+            <img
+              className="w-64 h-64"
+              src="/loading/comingsoon.png"
+              alt="Loading Phase 4"
+            />
+            <p className="text-xl text-blue-500 font-semibold">
+              거의 다 됐어요!
+            </p>
           </div>
         );
       default:

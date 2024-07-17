@@ -21,6 +21,8 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
   const btnRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const infraInfo = info.appropriateJeonsePrice.infrastructureNum;
+
   const handleOpen = () => {
     onOpen();
     if (onClick) onClick(); // onClick 이벤트 핸들러 호출
@@ -40,10 +42,10 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
               </div>
             </div>
             <hgroup className="flex flex-col gap-1">
-              <span className="text-2xl font-bold">{info.address}</span>
-              <span className="font-medium text-lg">{info.hanPrc}</span>
+              <span className="text-2xl font-bold">{info.jeonse.address}</span>
+              <span className="font-medium text-lg">{info.jeonse.hanPrc}</span>
               <span className="opacity-70">
-                {info.atclNm} {info.spc2 + "평"}
+                {info.jeonse.atclNm} {info.jeonse.spc2 + "평"}
               </span>
             </hgroup>
           </div>
@@ -68,11 +70,11 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
 
               <DrawerBody>
                 {/* <KakaoMap lat={info.lat} lng={info.lng} atclNm={info.atclNm} /> */}
-                <RoadMap lat={info.lat} lng={info.lng} />
+                <RoadMap lat={info.jeonse.lat} lng={info.jeonse.lng} />
                 <div>
                   <div className="pt-3 pb-2 flex items-center gap-2 w-full text-lg font-medium">
                     <FaMapMarkerAlt className="text-blue-400" />
-                    {info.address}
+                    {info.jeonse.address}
                   </div>
                   <ul className="border rounded">
                     <li className="grid grid-cols-10 gap-2">
@@ -80,26 +82,32 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
                         특징
                       </span>
                       <span className="py-2 col-span-8 text-sm">
-                        {info.atclFetrDesc}
+                        {info.jeonse.atclFetrDesc}
                       </span>
                     </li>
                     <li className="border-t grid grid-cols-10 gap-2">
                       <span className="p-2 col-span-2 text-right bg-slate-100">
                         방향
                       </span>
-                      <span className="py-2 col-span-8">{info.direction}</span>
+                      <span className="py-2 col-span-8">
+                        {info.jeonse.direction}
+                      </span>
                     </li>
                     <li className="border-t grid grid-cols-10 gap-2">
                       <span className="p-2 col-span-2 text-right bg-slate-100">
                         가격
                       </span>
-                      <span className="py-2 col-span-8">{info.hanPrc}</span>
+                      <span className="py-2 col-span-8">
+                        {info.jeonse.hanPrc}
+                      </span>
                     </li>
                     <li className="border-t grid grid-cols-10 gap-2">
                       <span className="p-2 col-span-2 text-right bg-slate-100">
                         주거형태
                       </span>
-                      <span className="py-2 col-span-8">{info.rletTpNm}</span>
+                      <span className="py-2 col-span-8">
+                        {info.jeonse.rletTpNm}
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -112,6 +120,14 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
                     alt="seoul"
                   />
                 </div>
+                <div className="pt-3 pb-2 flex items-center gap-2 w-full text-lg font-medium">
+                  인프라 정보
+                </div>
+                <div>{infraInfo.busStop}</div>
+                <div>{infraInfo.mart}</div>
+                <div>{infraInfo.publicSecurity}</div>
+                <div>{infraInfo.school}</div>
+                <div>{infraInfo.subway}</div>
               </DrawerBody>
 
               <DrawerFooter></DrawerFooter>

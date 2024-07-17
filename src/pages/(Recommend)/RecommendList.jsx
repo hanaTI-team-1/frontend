@@ -70,10 +70,15 @@ export default function RecommendList() {
           <h2 className="mt-36 bg-neutral-600 py-5 text-white w-full text-center text-4xl font-bold">
             AI가 추천 목록을 생성 중입니다
           </h2>
-          <h3 className="mt-4 text-center text-xl">
+          <h3 className="mt-4 text-center text-xl flex justify-center">
             예상 소요시간은{" "}
-            <span className="font-semibold text-md text-blue-300">45초</span>{" "}
-            입니다<span className="animate-dots"></span>
+            <span className="pl-2 pr-2 font-semibold text-md text-blue-300">
+              45초
+            </span>{" "}
+            입니다
+            <div className="w-10 text-left">
+              <span className="animate-dots w-5"></span>
+            </div>
           </h3>
           <div className="pt-20 flex justify-center">
             {/* <div className="h-96 w-96 flex items-center justify-center relative">
