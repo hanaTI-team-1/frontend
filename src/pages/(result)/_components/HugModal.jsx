@@ -117,17 +117,21 @@ function HugSlider({ onClose, setIsHugOk }) {
             paddingTop: "20px",
           }}
         >
-          HUG보증 보험 가입이 가능합니다!
+          <div className="w-full mx-auto relative text-xl font-bold flex justify-center items-center">
+            HUG보증 보험 가입이 가능합니다!
+          </div>
         </SwiperSlide>
         {index !== 17 ? (
           <CustomNavigationButtons setIsHugOk={setIsHugOk} onClose={onClose} />
         ) : (
-          <div
-            className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer w-2/3 mx-auto mb-4 text-white font-bold text-lg hover:bg-blue-300 w-full"
-            onClick={() => closeModal()}
-          >
-            닫기
-          </div>
+          <>
+            <div
+              className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-bold text-lg hover:bg-blue-300 w-full"
+              onClick={() => closeModal()}
+            >
+              닫기
+            </div>
+          </>
         )}
       </Swiper>
     </div>
@@ -141,32 +145,6 @@ const CustomNavigationButtons = ({ setIsHugOk, onClose }) => {
   const [isError, setIsError] = useState(false);
 
   const handleClick = () => {
-    // Swal.fire({
-    //   title: "HUG 보험 가입 여부",
-    //   text: "불가능합니다!",
-    //   icon: "error",
-    //   confirmButtonText: "확인했어요",
-    //   backdrop: true,
-    //   allowOutsideClick: true,
-    //   allowEscapeKey: true,
-    //   allowEnterKey: true,
-    //   stopKeydownPropagation: false,
-    //   showClass: {
-    //     popup: "swal2-fade-in", // Class for fade-in animation
-    //   },
-    //   hideClass: {
-    //     popup: "swal2-fade-out", // Class for fade-out animation
-    //   },
-    //   width: "28rem",
-    //   didOpen: () => {
-    //     const icon = document.querySelector(".swal2-icon");
-    //     if (icon) {
-    //       icon.classList.add("swal2-fade-in");
-    //     }
-    //   },
-    // }).then(() => {
-    //   setIsHugOk(3);
-    // });
     setIsError(true);
     onOpen();
   };
@@ -196,12 +174,19 @@ const CustomNavigationButtons = ({ setIsHugOk, onClose }) => {
           아니에요
         </div>
       </div>
-      {isError && <ErrorModal isOpen={isOpen} onClose={onClose} />}
+      {isError && (
+        <ErrorModal isOpen={isOpen} onClose={onClose} setIsHugOk={setIsHugOk} />
+      )}
     </div>
   );
 };
 
-const ErrorModal = ({ isOpen, onClose }) => {
+const ErrorModal = ({ isOpen, onClose, setIsHugOk }) => {
+  const handleClick = () => {
+    onClose();
+    setIsHugOk(3);
+  };
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
@@ -209,7 +194,19 @@ const ErrorModal = ({ isOpen, onClose }) => {
         <ModalContent>
           <ModalHeader>HUG 보증보험 확인하기</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>보험 가입이 불가능합니다.</ModalBody>
+          <ModalBody>
+            <div className="text-center">
+              <div className="w-full mx-auto relative text-xl font-bold h-[210px] flex justify-center items-center">
+                보증보험 가입이 불가능합니다.
+              </div>
+              <div
+                className="bg-red-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-bold text-lg hover:bg-red-300 w-full"
+                onClick={() => handleClick()}
+              >
+                확인했어요
+              </div>
+            </div>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
