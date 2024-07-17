@@ -8,6 +8,7 @@ import { api } from "../../lib/api";
 import { ResultCard } from "./_components/ResultCard";
 import { ResultCard2 } from "./_components/ResultCard2";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import KakaoMap from "../../components/KakaoMap";
 
 export default function Result() {
   const { atclNo } = useParams();
@@ -98,13 +99,13 @@ export default function Result() {
             <ResultCard2 type={5} isOk={isHugOk} setIsHugOk={setIsHugOk} />
           </ul>
         </section>
-        <Separator margin={40} />
+        <Separator mt={100} mb={60} />
         <Section1 data={jeonse.appropriateJeonsePrice} />
-        <Separator margin={40} />
+        <Separator mt={140} mb={60} />
         <Section2 data={jeonse.jeonseRate} />
-        <Separator margin={40} />
+        <Separator mt={140} mb={60} />
         <Section3 data={jeonse.builderLedger} jeonse={jeonse.jeonse} />
-        <Separator margin={40} />
+        <Separator mt={140} mb={60} />
         <div className="space-y-5">
           <InfoCard1 />
           <InfoCard2 />
@@ -129,17 +130,24 @@ const Section1 = ({ data }) => {
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">적정전세가</h2>
       <div className="mt-16 opacity-90 text-3xl font-bold text-center">
-        예방AI가 진단한 전세가격입니다.
+        예방AI가 진단한 적정전세가격입니다.
       </div>
-      <div className="mt-4 text-4xl font-bold text-center  text-blue-400">
+      <div
+        className={`mt-4 text-4xl font-bold text-center  ${
+          data.success ? "text-blue-400" : "text-rose-400"
+        }`}
+      >
         {data.jeonsePrice > 100000 && (data.jeonsePrice / 10000) | (0 + "억")}
         {data.jeonsePrice % 10000}만원
       </div>
       <div className="mt-10 w-full h-96 bg-rose-100 flex items-center justify-center">
         차트그리기
       </div>
-      <div className="mt-20 opacity-70 text-xl font-medium text-center">
-        예방 AI는 총 18가지 원인을 분석하여 전세가격을 예측하고 있습니다.
+      <div className="w-full flex justify-center">
+        <p className="mt-10 max-w-[80%] opacity-60 text-sm text-center break-keep">
+          예방 AI는 총 전세에 영향을 주는 18가지 지표를 분석하여 전세가격을
+          예측하고 있습니다.
+        </p>
       </div>
     </section>
   );
@@ -160,7 +168,10 @@ const Section2 = ({ data }) => {
           {data.jeonseSaleRate}%
         </strong>
       </div>
-      <h3 className="mt-10 opacity-85 text-3xl font-bold text-center">
+      <h3
+        className={`mt-10 opacity-85 text-3xl font-bold text-center
+          ${data.success ? "text-blue-400" : "text-rose-400"}`}
+      >
         {data.jeonseSaleRate <= 70 ? "안전합니다" : "위험합니다"}
       </h3>
       <div className="mt-20 opacity-70 text-xl font-medium text-center"></div>
@@ -188,7 +199,10 @@ const Section3 = ({ data, jeonse }) => {
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
-      <hgroup className="mt-16 space-y-10">
+      <div className="mt-10 px-16">
+        <KakaoMap lat={jeonse.lat} lng={jeonse.lng} />
+      </div>
+      <hgroup className="mt-5 space-y-10">
         <h3 className="opacity-90 flex justify-center items-center gap-2 text-2xl font-semibold">
           <FaMapMarkerAlt className="text-blue-400" />
           {jeonse.address}
@@ -196,7 +210,11 @@ const Section3 = ({ data, jeonse }) => {
         <h3 className="opacity-90 text-center font-medium">
           {data.information}
         </h3>
-        <h3 className="mt-10 opacity-85 text-3xl font-bold text-center">
+        <h3
+          className={`mt-10 opacity-85 text-3xl font-bold text-center ${
+            data.success ? "text-blue-400" : "text-rose-500"
+          }`}
+        >
           {data.success ? "안전합니다" : "위험합니다"}
         </h3>
         <div className="w-full flex justify-center">
