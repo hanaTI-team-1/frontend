@@ -5,6 +5,7 @@ import AddressCard from "../components/card/AddressCard";
 import { AddressCardSkeleton } from "../components/card/AddressCardSkeleton";
 import { Separator } from "../components/Separator";
 import { api } from "../lib/api";
+import NumberCounter from "../components/NumberCounter";
 
 export default function Protect() {
   const [searchResults, setSearchResults] = useState([]);
@@ -33,9 +34,9 @@ export default function Protect() {
         </h1>
         <p className="mt-5 text-sm sm:text-lg text-center break-keep">
           예방은
-          <strong className="text-blue-400 text-3xl tracking-wide">
+          <strong className="text-3xl tracking-wide">
             {" "}
-            24,324
+            <NumberCounter max={24324} delay={1} />
           </strong>
           개<br className="block sm:hidden" /> 의 전세 매물을 보호하고 있습니다.
         </p>

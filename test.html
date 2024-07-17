@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+    <style>
+      .section10 {
+        width: 100%;
+        height: 400px;
+        background-color: #f2f2f2;
+      }
+      .section10Text {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 35px;
+        line-height: 52px;
+        text-align: center;
+        letter-spacing: -0.08em;
+        position: relative;
+        margin: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .colorBold,
+      .countNum {
+        color: #0071e3;
+        font-weight: 700;
+      }
+
+      .countBold {
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section10">
+      <p class="section10Text">
+        <span class="countNum">0</span>명의 회원이 쏘카와 함께하고 있습니다.
+      </p>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const counter = ($counter, max) => {
+      let now = max;
+
+      const handle = setInterval(() => {
+        $counter.innerHTML = Math.ceil(max - now);
+
+        if (now < 1) {
+          clearInterval(handle);
+        }
+        const step = now / 10;
+
+        now -= step;
+      }, 10);
+    };
+    window.onload = () => {
+      const $counter = document.querySelector(".countNum");
+
+      const max = 8599184;
+      setTimeout(() => counter($counter, max), 500);
+    };
+  </script>
+</html>

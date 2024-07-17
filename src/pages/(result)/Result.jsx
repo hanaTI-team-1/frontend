@@ -41,7 +41,7 @@ export default function Result() {
       <main className="min-h-full flex justify-center bg-slate-50">
         <div className="min-h-full w-full max-w-[800px] bg-white border-l border-r shadow-md">
           <h2 className="mt-36 bg-neutral-600 py-5 text-white w-full text-center text-4xl font-bold">
-            매물을 검사하고 있습니다
+            AI가 전세 사기 체크리스트를 불러오고 있어요!
           </h2>
           <div className="pt-20 flex justify-center">
             <div className="h-96 w-96 flex items-center justify-center relative">

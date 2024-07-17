@@ -1,22 +1,19 @@
 import { useState } from "react";
 import {
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
 // RecommendOption 컴포넌트 정의
 function RecommendOption({ title, defaultValue, onChange }) {
-  const [range, setRange] = useState(defaultValue); // 초기 범위 값 설정
+  const [value, setValue] = useState(defaultValue);
 
-  const handleChange = (newRange) => {
-    // newRange가 현재 range와 같으면 이동하지 않도록 처리
-    if (newRange[0] !== range[0]) {
-      setRange(newRange);
-      onChange(newRange); // 부모 컴포넌트로 범위 변경을 전달
-    }
+  const handleChange = (newValue) => {
+    setValue(newValue);
+    onChange(newValue);
   };
 
   return (
@@ -25,18 +22,12 @@ function RecommendOption({ title, defaultValue, onChange }) {
         <div className="text-xl font-semibold">{title}</div>
       </div>
       <div className="w-[300px]">
-        <RangeSlider
-          value={range}
-          min={1}
-          max={3}
-          step={1}
-          onChange={handleChange}
-        >
-          <RangeSliderTrack bg="#3388ff">
-            <RangeSliderFilledTrack bg="#D6E7FF" />
-          </RangeSliderTrack>
-          <RangeSliderThumb boxSize={6} index={0} bg="#D4D4D8" />
-        </RangeSlider>
+        <Slider value={value} min={1} max={3} step={1} onChange={handleChange}>
+          <SliderTrack bg="#D6E7FF">
+            <SliderFilledTrack bg="#3388ff" />
+          </SliderTrack>
+          <SliderThumb boxSize={6} bg="#D4D4D8" />
+        </Slider>
       </div>
     </div>
   );
@@ -50,32 +41,32 @@ export default function RecommendOpt() {
   const [price, setPrice] = useState(0);
   const [hanPrice, setHanPrice] = useState("");
 
-  // 각 항목에 대한 초기 범위 값 설정
-  const [policeStationsRange, setPoliceStationsRange] = useState([1, 3]);
-  const [groceriesRange, setGroceriesRange] = useState([1, 3]);
-  const [schoolsRange, setSchoolsRange] = useState([1, 3]);
-  const [busStationsRange, setBusStationsRange] = useState([1, 3]);
-  const [subwayStationsRange, setSubwayStationsRange] = useState([1, 3]);
+  // 각 항목에 대한 초기 값 설정
+  const [policeStationsValue, setPoliceStationsValue] = useState(1);
+  const [groceriesValue, setGroceriesValue] = useState(1);
+  const [schoolsValue, setSchoolsValue] = useState(1);
+  const [busStationsValue, setBusStationsValue] = useState(1);
+  const [subwayStationsValue, setSubwayStationsValue] = useState(1);
 
-  // 범위 변경 시 처리 함수
-  const handlePoliceStationsChange = (newRange) => {
-    setPoliceStationsRange(newRange);
+  // 값 변경 시 처리 함수
+  const handlePoliceStationsChange = (newValue) => {
+    setPoliceStationsValue(newValue);
   };
 
-  const handleGroceriesChange = (newRange) => {
-    setGroceriesRange(newRange);
+  const handleGroceriesChange = (newValue) => {
+    setGroceriesValue(newValue);
   };
 
-  const handleSchoolsChange = (newRange) => {
-    setSchoolsRange(newRange);
+  const handleSchoolsChange = (newValue) => {
+    setSchoolsValue(newValue);
   };
 
-  const handleBusStationsChange = (newRange) => {
-    setBusStationsRange(newRange);
+  const handleBusStationsChange = (newValue) => {
+    setBusStationsValue(newValue);
   };
 
-  const handleSubwayStationsChange = (newRange) => {
-    setSubwayStationsRange(newRange);
+  const handleSubwayStationsChange = (newValue) => {
+    setSubwayStationsValue(newValue);
   };
 
   const getKoreanNumber = (price) => {
@@ -94,7 +85,6 @@ export default function RecommendOpt() {
 
     setHanPrice(result);
   };
-
   return (
     <>
       <main className="min-h-full w-full flex justify-center bg-slate-50">
@@ -122,36 +112,31 @@ export default function RecommendOpt() {
             <span className="sm:w-20 sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
               {hanPrice}
             </span>
-            <button
-              type="submit"
-              className="h-8 w-10 sm:w-auto sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 cursor-pointer rounded-lg md:rounded-full  bg-blue-100 text-blue-500 hover:bg-blue-200 hover:opacity-60 duration-150 shadow-md hidden"
-            ></button>
           </div>
           <div className="flex flex-col justify-center items-center w-[800px] mt-10">
-            {/* 각 항목별 RecommendOption 컴포넌트 사용 */}
             <RecommendOption
               title="치안"
-              defaultValue={policeStationsRange}
+              defaultValue={policeStationsValue}
               onChange={handlePoliceStationsChange}
             />
             <RecommendOption
               title="편의점"
-              defaultValue={groceriesRange}
+              defaultValue={groceriesValue}
               onChange={handleGroceriesChange}
             />
             <RecommendOption
               title="학교"
-              defaultValue={schoolsRange}
+              defaultValue={schoolsValue}
               onChange={handleSchoolsChange}
             />
             <RecommendOption
               title="버스"
-              defaultValue={busStationsRange}
+              defaultValue={busStationsValue}
               onChange={handleBusStationsChange}
             />
             <RecommendOption
               title="지하철"
-              defaultValue={subwayStationsRange}
+              defaultValue={subwayStationsValue}
               onChange={handleSubwayStationsChange}
             />
           </div>
@@ -160,7 +145,7 @@ export default function RecommendOpt() {
               className="rounded-lg bg-blue-400 pl-20 pr-20 pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
               onClick={() => {
                 navigate(
-                  `/recommend/${gu}/${dong}/list?price=${price}&policeStation=${policeStationsRange[0]}&groceries=${groceriesRange[0]}&schools=${schoolsRange[0]}&busStations=${busStationsRange[0]}&subwayStations=${subwayStationsRange[0]}`
+                  `/recommend/${gu}/${dong}/list?price=${price}&policeStation=${policeStationsValue}&groceries=${groceriesValue}&schools=${schoolsValue}&busStations=${busStationsValue}&subwayStations=${subwayStationsValue}`
                 );
               }}
             >

@@ -1,0 +1,38 @@
+.animate-dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 2s steps(4, end) infinite;
+}
+
+/* 다른 CSS 스타일들 */
+
+@keyframes dots {
+  0%,
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: "...";
+  }
+  80% {
+    content: "";
+  }
+}
+/* LoadingScreen.css */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  animation: fadeInUp 1s ease-out;
+}
