@@ -9,7 +9,8 @@ import { ResultCard } from "./_components/ResultCard";
 import { ResultCard2 } from "./_components/ResultCard2";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import KakaoMap from "../../components/KakaoMap";
-import InfraChart from '../../components/InfraChart';
+import InfraChart from "../../components/InfraChart";
+import { ResultCard3 } from "./_components/ResultCard3";
 
 export default function Result() {
   const { atclNo } = useParams();
@@ -17,6 +18,8 @@ export default function Result() {
   const [isCertiOk, setIsCertiOk] = useState(1);
   const [jeonse, setJeonse] = useState(null);
   const [successCount, setSuccessCount] = useState(0);
+  const [aptDong, setAptDong] = useState("");
+  const [aptHo, setAptHo] = useState("");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -28,15 +31,21 @@ export default function Result() {
       if (result.data.data.certifiedRealEstateAgent.success) count++;
       if (result.data.data.appropriateJeonsePrice.success) count++;
       setSuccessCount(count);
+      console.log(result);
     };
     getInfo();
   }, []);
 
   useEffect(() => {
-    if (isHugOk === 2) setSuccessCount(successCount + 1);
-    else if (isHugOk === 3) setSuccessCount(successCount - 1);
-    if (isCertiOk === 2) setSuccessCount(successCount + 1);
+    // if (isHugOk === 2) setSuccessCount(successCount + 1);
+    // else if (isHugOk === 3) setSuccessCount(successCount - 1);
+    // if (isCertiOk === 2) setSuccessCount(successCount + 1);
+    // console.log(isHugOk, isCertiOk);
   }, [isHugOk, isCertiOk]);
+
+  useEffect(() => {
+    // console.log(aptDong, aptHo);
+  }, [aptDong, aptHo]);
 
   if (!jeonse) {
     return (
@@ -87,8 +96,8 @@ export default function Result() {
             />
           </div>
           <h2 className="text-3xl font-bold text-center mt-10 text-neutral-700">
-            해당 매물은{" "}
-            <strong className="text-blue-400">{successCount}</strong>/5개의
+            해당 매물은 현재{" "}
+            <strong className="text-blue-400">{successCount}</strong>/6개의
             검사를 통과했습니다
           </h2>
           <ul className="flex flex-wrap justify-between gap-10 p-10">
@@ -103,7 +112,16 @@ export default function Result() {
               success={jeonse.certifiedRealEstateAgent.success}
             />
             <ResultCard2 type={5} isOk={isHugOk} setIsHugOk={setIsHugOk} />
-            <ResultCard2 type={4} isOk={isCertiOk} />
+            <ResultCard3
+              type={4}
+              isOk={isCertiOk}
+              setIsCertiOk={setIsCertiOk}
+              aptDong={aptDong}
+              setAptDong={setAptDong}
+              aptHo={aptHo}
+              setAptHo={setAptHo}
+              addressRoad={jeonse.jeonse.addressRoad}
+            />
           </ul>
         </section>
         <Separator mt={100} mb={60} />
@@ -145,15 +163,16 @@ const Section1 = ({ data }) => {
         }`}
       >
         {/* {data.jeonsePrice > 100000 && (data.jeonsePrice / 10000) | (0 + "억")} */}
-        {console.log(data)}
-        {data.jeonsePrice > 10000 && (Math.floor(data.jeonsePrice / 10000) + "억")}
+        {/* {console.log(data)} */}
+        {data.jeonsePrice > 10000 &&
+          Math.floor(data.jeonsePrice / 10000) + "억"}
         {data.jeonsePrice % 10000}만원
       </div>
       {/* <div className="mt-10 w-full h-96 bg-rose-100 flex items-center justify-center">
         차트그리기
       </div> */}
 
-      <InfraChart 
+      <InfraChart
         school={data.infrastructureNum.school}
         police={data.infrastructureNum.publicSecurity}
         busStop={data.infrastructureNum.busStop}

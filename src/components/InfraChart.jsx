@@ -20,7 +20,7 @@ export default function InfraChart(props) {
       bar: {
         columnWidth: "30%",
         distributed: true,
-        horizontal: true,
+        // horizontal: true,
       },
     },
     dataLabels: {
@@ -53,7 +53,7 @@ export default function InfraChart(props) {
     },
     tooltip: {
       enabled: false, // 기본 툴팁 비활성화
-      custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+      custom: function ({ series, seriesIndex, dataPointIndex }) {
         // 사용자 지정 HTML 반환
         return "<div>Custom tooltip content</div>";
       },
@@ -62,7 +62,7 @@ export default function InfraChart(props) {
 
   const [series, setSeries] = useState([
     {
-      data: [props.school, props.police, props.busStop, 1, props.mart, 21],
+      data: [props.school, props.police, props.busStop, 1, props.mart],
     },
   ]);
 

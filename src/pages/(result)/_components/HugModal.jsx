@@ -59,6 +59,7 @@ function HugSlider({ onClose, setIsHugOk }) {
   };
 
   const closeModal = () => {
+    // TODO: 변동 없으면 변화 X
     setIsHugOk(2);
     onClose();
   };

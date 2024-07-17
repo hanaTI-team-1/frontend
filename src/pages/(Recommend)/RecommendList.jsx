@@ -5,6 +5,15 @@ import axios from "axios";
 import { JeonseCard3 } from "../../components/card/JeonseCard3";
 import RecommendDetail from "./RecommendDetail";
 import LoadingScreen from "./LoadingScreen";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 export default function RecommendList() {
   const { gu, dong } = useParams();
@@ -23,8 +32,9 @@ export default function RecommendList() {
   const [detail, setDetail] = useState(false);
   const [type, setType] = useState("");
 
-  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const navigate = useNavigate();
   useEffect(() => {
     setIsLoading(true);
     const params = {
@@ -34,16 +44,16 @@ export default function RecommendList() {
       school: schools,
       mart: groceries,
       bus: busStations,
-      price: price / 10000,
+      price: price,
     };
 
     const getResult = async () => {
       try {
-        // const response = await axios.post(
-        //   "http://34.64.53.101:8081/api/jeonse/recommend",
-        //   params
-        // );
-        const response = await axios.get("/recommend.json");
+        const response = await axios.post(
+          "http://34.64.53.101:8081/api/jeonse/recommend",
+          params
+        );
+        // const response = await axios.get("/recommend.json");
         // console.log(response.data.data.clusterType);
         setResult(response.data.data.recommend);
         setType(response.data.data.clusterType);
@@ -87,11 +97,23 @@ export default function RecommendList() {
     );
   }
 
+  const typeEng = ["A", "B", "C", "D"];
+
   return (
     <>
       {!detail ? (
         <main className="min-h-full h-full flex flex-col items-center bg-slate-50">
           <div className="min-h-full pt-28 px-0 max-w-[800px] w-full bg-white border-r border-l shadow-md">
+            <div className="relative">
+              <div
+                className="text-gray-400 absolute right-10 -top-7 cursor-pointer border-b border-gray-300"
+                onClick={() => {
+                  onOpen();
+                }}
+              >
+                타입이란?
+              </div>
+            </div>
             <h1 className="text-center text-4xl font-semibold">
               전세 매물을 찾았습니다
             </h1>
@@ -102,13 +124,16 @@ export default function RecommendList() {
               ) : (
                 <>
                   {" "}
-                  <p className="text-center text-2xl font-semibold">
-                    추천 타입은{" "}
-                    <span className="text-blue-500 font-bold">
-                      {type.replace("Cluster ", "") + " "}
-                    </span>
-                    입니다
-                  </p>
+                  <div className="flex justify-evenly">
+                    <p className="text-center text-2xl font-semibold">
+                      AI가 분석한 당신의 성향은{" "}
+                      <span className="text-blue-500 font-bold">
+                        {typeEng[parseInt(type.replace("Cluster ", ""))] + " "}{" "}
+                        성향
+                      </span>
+                      입니다
+                    </p>
+                  </div>
                   총 <strong className="text-blue-400">{result.length}</strong>{" "}
                   건의 매물이 검색되었습니다
                 </>
@@ -146,6 +171,47 @@ export default function RecommendList() {
               </ul>
             </section>
           </div>
+          <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>예방AI의 유형 분류</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <div>
+                  <div className="flex items-center mb-3">
+                    <img className="w-20" src="/type/couple.png" />
+                    <div className="pl-3 mr-5 text-xl font-semibold text-blue-500">
+                      A 유형
+                    </div>
+                    <div className="font-semibold">
+                      주거 안정성이 중요합니다
+                    </div>
+                  </div>
+                  <div className="flex items-center mb-3">
+                    <img className="w-20" src="/type/flex.png" />
+                    <div className="pl-3 mr-5 text-xl font-semibold text-blue-500">
+                      B 유형
+                    </div>
+                    <div className="font-semibold">가격이 중요합니다</div>
+                  </div>
+                  <div className="flex items-center mb-3">
+                    <img className="w-20" src="/type/insider.png" />
+                    <div className="pl-3 mr-5 text-xl font-semibold text-blue-500">
+                      C 유형
+                    </div>
+                    <div className="font-semibold">이동 수단이 중요합니다</div>
+                  </div>
+                  <div className="flex items-center mb-3">
+                    <img className="w-20" src="/type/outsider.png" />
+                    <div className="pl-3 mr-5 text-xl font-semibold text-blue-500">
+                      D 유형
+                    </div>
+                    <div className="font-semibold">집돌이 타입입니다</div>
+                  </div>
+                </div>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
         </main>
       ) : (
         <RecommendDetail result={result} />
