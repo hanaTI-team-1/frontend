@@ -20,6 +20,9 @@ export default function Result() {
   const [successCount, setSuccessCount] = useState(0);
   const [aptDong, setAptDong] = useState("");
   const [aptHo, setAptHo] = useState("");
+  const [isHugOkClicked, setIsHugOkClicked] = useState(1);
+  const [isCertiOkClicked, setIsCertiOkClicked] = useState(1);
+  const [resultImgUrl, setResultImgUrl] = useState("smile-girl.jpg");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -31,21 +34,35 @@ export default function Result() {
       if (result.data.data.certifiedRealEstateAgent.success) count++;
       if (result.data.data.appropriateJeonsePrice.success) count++;
       setSuccessCount(count);
-      console.log(result);
     };
     getInfo();
   }, []);
 
   useEffect(() => {
-    // if (isHugOk === 2) setSuccessCount(successCount + 1);
-    // else if (isHugOk === 3) setSuccessCount(successCount - 1);
-    // if (isCertiOk === 2) setSuccessCount(successCount + 1);
-    // console.log(isHugOk, isCertiOk);
-  }, [isHugOk, isCertiOk]);
+    if (isHugOkClicked > 2) {
+      if (isHugOk === 2) setSuccessCount(successCount + 1);
+      else setSuccessCount(successCount - 1);
+    }
+    setIsHugOkClicked(isHugOkClicked + 1);
+  }, [isHugOk]);
 
   useEffect(() => {
-    // console.log(aptDong, aptHo);
-  }, [aptDong, aptHo]);
+    if (isCertiOkClicked > 2) {
+      if (isCertiOk === 2) setSuccessCount(successCount + 1);
+      else setSuccessCount(successCount - 1);
+    }
+    setIsCertiOkClicked(isCertiOkClicked + 1);
+  }, [isCertiOk]);
+
+  useEffect(() => {
+    if (successCount >= 5) {
+      setResultImgUrl("smile-girl.jpg");
+    } else if (successCount >= 3) {
+      setResultImgUrl("smile-girl.jpg");
+    } else {
+      setResultImgUrl("smile-girl.jpg");
+    }
+  });
 
   if (!jeonse) {
     return (
@@ -89,7 +106,7 @@ export default function Result() {
 
           <div className="w-full h-[300px] flex justify-center">
             <img
-              src="/smile-girl.jpg"
+              src={"/result/" + resultImgUrl}
               width={300}
               height={300}
               alt="girl-smile"

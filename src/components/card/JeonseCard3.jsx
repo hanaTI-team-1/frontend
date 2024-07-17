@@ -29,7 +29,7 @@ export const JeonseCard3 = ({ info, isDetail, onClick, setDetail }) => {
   const handleOpen = () => {
     if (!isDetail) setDetail(true);
     onOpen();
-    if (onClick) onClick(); // onClick 이벤트 핸들러 호출
+    if (onClick) onClick();
   };
 
   const makeHanPrc = (prc) => {
@@ -129,65 +129,64 @@ export const JeonseCard3 = ({ info, isDetail, onClick, setDetail }) => {
                     </li>
                   </ul>
                 </div>
-                <div className="pt-2 text-sm opacity-70 flex items-center justify-end gap-2">
-                  네이버 부동산 정보
-                  <img
-                    src="/icons/seoul-city.svg"
-                    width={16}
-                    height={16}
-                    alt="seoul"
+                <div className="pt-2 opacity-70">
+                  <a
+                    className="text-sm w-full h-full flex items-center justify-end gap-2"
+                    href={`https://new.land.naver.com/search?sk=${info.atclNm}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    네이버 부동산 정보
+                    <img
+                      src="/icons/seoul-city.svg"
+                      width={16}
+                      height={16}
+                      alt="seoul"
+                    />
+                  </a>
+                </div>
+                <div className="pt-3 pb-3 flex items-center gap-2 w-full">
+                  <div className="text-lg font-semibold">
+                    인프라 정보{" "}
+                    <span className="pl-2 text-gray-400 text-sm">
+                      반경 500m 기준
+                    </span>
+                  </div>
+                </div>
+                <div className="flex mb-2">
+                  <InfraInfo
+                    title="지하철"
+                    count={
+                      Math.round(infraInfo.subway * 1000) > 500
+                        ? Math.round(infraInfo.subway * 1000) + "m"
+                        : "0개"
+                    }
+                    url={"subway"}
+                  />
+                  <InfraInfo
+                    title="버스정류장"
+                    count={infraInfo.busStop + "  개"}
+                    url={"bus"}
                   />
                 </div>
-                <div className="pt-3 pb-2 flex items-center gap-2 w-full text-lg font-semibold">
-                  인프라 정보{" "}
-                  <span className="pl-2 text-gray-400 text-sm">
-                    반경 500m 기준
-                  </span>
+                <div className="flex mb-2">
+                  <InfraInfo
+                    title="학교"
+                    count={infraInfo.school + " 개"}
+                    url={"school"}
+                  />
+                  <InfraInfo
+                    title="경찰서"
+                    count={infraInfo.publicSecurity + " 개"}
+                    url={"police"}
+                  />
                 </div>
-                <div className="flex">
-                  <div className="flex items-center" style={{ flex: 1 }}>
-                    <img
-                      src="/infra/subway.png"
-                      className="w-[50px] h-[50px] pt-2 pb-2 scale-150"
-                    />
-                    <p className="pl-5 text-blue-500 font-bold text-md">
-                      지하철{" "}
-                      {Math.round(infraInfo.subway * 1000) > 500
-                        ? Math.round(infraInfo.subway * 1000) + "m"
-                        : "0개"}
-                    </p>
-                  </div>
-                  <div className="flex items-center" style={{ flex: 1 }}>
-                    <img
-                      src="/infra/bus.png"
-                      className="w-[50px] h-[50px] pl-1 pr-1"
-                    />
-                    <p className="pl-5 text-blue-500 font-bold text-md">
-                      버스정류장 {infraInfo.busStop}개
-                    </p>
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="flex items-center" style={{ flex: 1 }}>
-                    <img src="/infra/school.png" className="w-[50px]" />
-                    <p className="pl-5 text-blue-500 font-bold text-md">
-                      학교 {infraInfo.school}개
-                    </p>
-                  </div>
-                  <div className="flex items-center" style={{ flex: 1 }}>
-                    <img src="/infra/police.png" className="w-[50px]" />
-                    <p className="pl-5 text-blue-500 font-bold text-md">
-                      경찰서 {infraInfo.publicSecurity}개
-                    </p>
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="flex items-center">
-                    <img src="/infra/mart.png" className="w-[50px]" />
-                    <p className="pl-5 text-blue-500 font-bold text-md">
-                      마트 {infraInfo.mart}개
-                    </p>
-                  </div>
+                <div className="flex mb-2">
+                  <InfraInfo
+                    title="마트"
+                    count={infraInfo.mart + " 개"}
+                    url={"mart"}
+                  />
                 </div>
               </DrawerBody>
 
@@ -201,4 +200,14 @@ export const JeonseCard3 = ({ info, isDetail, onClick, setDetail }) => {
     </>
   );
 };
-``;
+
+const InfraInfo = ({ title, count, url }) => {
+  return (
+    <div className="flex items-center" style={{ flex: 1 }}>
+      <img src={"/infra/" + url + ".png"} className="w-[50px]" />
+      <p className="pl-5 text-blue-500 font-bold text-md">
+        {title} {count}
+      </p>
+    </div>
+  );
+};

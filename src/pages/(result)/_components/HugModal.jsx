@@ -16,7 +16,6 @@ import { IoClose } from "react-icons/io5";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Swal from "sweetalert2";
 import JSConfetti from "js-confetti";
 
 import { Pagination, Navigation } from "swiper/modules";
@@ -52,37 +51,22 @@ function HugSlider({ onClose, setIsHugOk }) {
     setIndex(swiper.activeIndex);
     if (swiper.activeIndex === 17 && jsConfetti) {
       jsConfetti.addConfetti({
-        confettiColors: ["#CAB0FF"],
+        confettiColors: ["#ffef00"],
         confettiNumber: 500,
       });
     }
   };
 
   const closeModal = () => {
-    // TODO: 변동 없으면 변화 X
     setIsHugOk(2);
     onClose();
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        marginLeft: "auto",
-        marginRight: "auto",
-        position: "relative",
-        fontWeight: "bold",
-      }}
-    >
+    <div className="w-full mx-auto relative text-xl font-bold">
       <div
-        className="swiper-pagination"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1,
-        }}
+        className="swiper-pagination absolute top-0 left-1/2 transform -translate-x-1/2"
+        style={{ zIndex: 1 }}
       />
       <Swiper
         pagination={{
@@ -90,6 +74,7 @@ function HugSlider({ onClose, setIsHugOk }) {
           type: "fraction",
           clickable: true,
         }}
+        allowTouchMove={false}
         onSlideChange={handleSlideChange}
         modules={[Pagination, Navigation]}
         className="mySwiper"

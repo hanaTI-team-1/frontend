@@ -4,7 +4,6 @@ import { Separator } from "../../components/Separator";
 import axios from "axios";
 import { JeonseCard3 } from "../../components/card/JeonseCard3";
 import RecommendDetail from "./RecommendDetail";
-import LoadingScreen from "./LoadingScreen";
 import {
   Modal,
   ModalOverlay,
@@ -14,6 +13,7 @@ import {
   ModalBody,
   useDisclosure,
 } from "@chakra-ui/react";
+import { LoadingScreen } from "./LoadingScreen";
 
 export default function RecommendList() {
   const { gu, dong } = useParams();
@@ -49,11 +49,11 @@ export default function RecommendList() {
 
     const getResult = async () => {
       try {
-        const response = await axios.post(
-          "http://34.64.53.101:8081/api/jeonse/recommend",
-          params
-        );
-        // const response = await axios.get("/recommend.json");
+        // const response = await axios.post(
+        //   "http://34.64.53.101:8081/api/jeonse/recommend",
+        //   params
+        // );
+        const response = await axios.get("/sample/recommend.json");
         // console.log(response.data.data.clusterType);
         setResult(response.data.data.recommend);
         setType(response.data.data.clusterType);
@@ -111,7 +111,7 @@ export default function RecommendList() {
                   onOpen();
                 }}
               >
-                타입이란?
+                유형이란?
               </div>
             </div>
             <h1 className="text-center text-4xl font-semibold">
@@ -145,11 +145,11 @@ export default function RecommendList() {
                 {result === undefined || result.length === 0 ? (
                   <>
                     <div className="text-center text-xl font-semibold">
-                      더 구체적인 조건을 입력해보세요!
+                      더 구체적인 조건을 입력해주세요
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center ">
                       <div
-                        className="py-2 h-10 rounded-lg bg-blue-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+                        className="py-3 h-12 rounded-lg bg-blue-300 text-center w-[90%] cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
                         onClick={() => {
                           navigate(-1);
                         }}

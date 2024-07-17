@@ -11,11 +11,7 @@ import HugModal from "./HugModal";
 export const ResultCard2 = ({ type, isOk, setIsHugOk }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleButtonClick = () => {
-    if (type === 5) {
-      onOpen();
-    } else {
-      // window.scrollTo({ top: checkList[type].scroll, behavior: "smooth" });
-    }
+    onOpen();
   };
   return (
     <>
@@ -59,9 +55,7 @@ export const ResultCard2 = ({ type, isOk, setIsHugOk }) => {
           {checkList[type].btn}
         </Button>
       </motion.article>
-      {type === 5 && (
-        <HugModal isOpen={isOpen} onClose={onClose} setIsHugOk={setIsHugOk} />
-      )}
+      <HugModal isOpen={isOpen} onClose={onClose} setIsHugOk={setIsHugOk} />
     </>
   );
 };

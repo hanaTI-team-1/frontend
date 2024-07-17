@@ -29,41 +29,41 @@ export const ResultCard3 = ({
   setAptHo,
   addressRoad,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(1); // 1: 다운로드 전, 2: 다운로드 중, 3: 다운로드 완료
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleButtonClick = async () => {
-    setIsLoading(true);
+  const handleDownloadClick = async () => {
+    setIsLoading(2);
     try {
-      await axios
-        .post(
-          `http://34.64.53.101:8081/api/jeonse/register-doc?address=${addressRoad} ${aptDong} ${aptHo}`,
-          {}, // 요청에 body가 없으면 빈 객체를 넘겨줍니다.
-          { responseType: "blob" } // responseType을 blob으로 설정
-        )
-        .then((response) => {
-          const blob = response.data;
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = url;
-          a.download = `${addressRoad}_${aptDong}_${aptHo}_등기부등본.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-        })
-        .catch((error) => console.error("Download failed:", error));
+      // await axios
+      //   .post(
+      //     `http://34.64.53.101:8081/api/jeonse/register-doc?address=${addressRoad} ${aptDong} ${aptHo}`,
+      //     {},
+      //     { responseType: "blob" }
+      //   )
+      //   .then((response) => {
+      //     const blob = response.data;
+      //     const url = window.URL.createObjectURL(blob);
+      //     const a = document.createElement("a");
+      //     a.style.display = "none";
+      //     a.href = url;
+      //     a.download = `${addressRoad}_${aptDong}_${aptHo}_등기부등본.pdf`;
+      //     document.body.appendChild(a);
+      //     a.click();
+      //     window.URL.revokeObjectURL(url);
+      //   })
+      //   .catch((error) => console.error("Download failed:", error));
     } catch (error) {
+      setIsCertiOk(3);
       console.error("Error fetching recommendation:", error);
     } finally {
-      setIsLoading(false);
-      onClose();
+      setIsLoading(3);
     }
+  };
 
-    if (type === 4) {
-      // TODO: certification 수정
-      // setIsCertiOk(2);
-    }
+  const closeButtonClick = () => {
+    onClose();
+    setIsCertiOk(2);
   };
 
   return (
@@ -103,7 +103,7 @@ export const ResultCard3 = ({
             onOpen();
           }}
         >
-          다운로드
+          {isOk === 2 ? <>다운로드 완료</> : <>다운로드</>}
         </Button>
       </motion.article>
       <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
@@ -112,7 +112,35 @@ export const ResultCard3 = ({
           <ModalHeader>등기부등본</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {isLoading ? (
+            {isLoading === 1 ? (
+              <>
+                <div>
+                  <h1 className="mb-5 text-xl font-semibold">
+                    상세한 주소를 입력해주세요
+                  </h1>
+                  <div className="flex items-center mb-5">
+                    <input
+                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
+                      placeholder="동을 입력해주세요 ex) 205동"
+                      onChange={(e) => setAptDong(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex items-center mb-5">
+                    <input
+                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
+                      placeholder="호를 입력해주세요 ex) 505호"
+                      onChange={(e) => setAptHo(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
+                  onClick={() => handleDownloadClick()}
+                >
+                  등기부등본 다운로드
+                </div>
+              </>
+            ) : isLoading === 2 ? (
               <>
                 <div>
                   <div className="flex justify-center items-center scale-125">
@@ -139,30 +167,16 @@ export const ResultCard3 = ({
               </>
             ) : (
               <>
-                <div>
-                  <h1 className="mb-5 text-xl font-semibold">
-                    상세한 주소를 입력해주세요
-                  </h1>
-                  <div className="flex items-center mb-5">
-                    <input
-                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
-                      placeholder="동을 입력해주세요 ex) 205동"
-                      onChange={(e) => setAptDong(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex items-center mb-5">
-                    <input
-                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
-                      placeholder="호를 입력해주세요 ex) 505호"
-                      onChange={(e) => setAptHo(e.target.value)}
-                    />
+                <div className="flex justify-center mt-5 mb-5 ">
+                  <div className="text-xl font-bold pb-5">
+                    다운로드가 완료되었습니다
                   </div>
                 </div>
                 <div
                   className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
-                  onClick={() => handleButtonClick()}
+                  onClick={() => closeButtonClick()}
                 >
-                  등기부등본 다운로드
+                  닫기
                 </div>
               </>
             )}

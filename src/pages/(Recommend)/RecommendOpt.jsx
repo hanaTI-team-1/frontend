@@ -148,9 +148,9 @@ export default function RecommendOpt() {
               onChange={handleSubwayStationsChange}
             />
           </div>
-          <div className="flex justify-center items-center">
+          <div className="w-[80%] text-center">
             <div
-              className="rounded-lg bg-blue-400 pl-20 pr-20 pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+              className="rounded-lg bg-blue-400 pl-20 pr-20 pt-3 pb-3 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
               onClick={() => {
                 navigate(
                   `/recommend/${gu}/${dong}/list?price=${price}&policeStation=${policeStationsValue}&groceries=${groceriesValue}&schools=${schoolsValue}&busStations=${busStationsValue}&subwayStations=${subwayStationsValue}`

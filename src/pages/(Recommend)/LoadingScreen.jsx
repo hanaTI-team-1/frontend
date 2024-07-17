@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const LoadingScreen = () => {
+export const LoadingScreen = () => {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
@@ -78,5 +78,3 @@ const LoadingScreen = () => {
     </div>
   );
 };
-
-export default LoadingScreen;

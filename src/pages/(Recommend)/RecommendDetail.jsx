@@ -1,33 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Separator } from "../../components/Separator";
-import axios from "axios";
 import { JeonseCard3 } from "../../components/card/JeonseCard3";
 import RecommendMap from "../../components/map/RecommendMap";
 
 export default function RecommendDetail({ result }) {
-  const { gu, dong } = useParams();
-
-  const [isLoading, setIsLoading] = useState(true);
-
   const [cardIndex, setCardIndex] = useState("");
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    const getResult = async () => {
-      try {
-      } catch (error) {
-        console.error("Error fetching recommendation:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getResult();
-  }, []);
 
   useEffect(() => {
     console.log(result);
@@ -35,7 +12,6 @@ export default function RecommendDetail({ result }) {
 
   const handleCardClick = (index) => {
     setCardIndex(index);
-    // console.log(Card ${index} clicked);
   };
 
   return (
@@ -59,7 +35,6 @@ export default function RecommendDetail({ result }) {
                 key={index}
                 isDetail={true}
                 onClick={() => handleCardClick(index)}
-                // url={/protect/result/${item.atclNo}}
               />
             ))}
           </ul>
