@@ -96,9 +96,11 @@ export const JeonseCard2 = ({ info, url }) => {
               </ul>
             </div>
             <div className="pt-2 opacity-70">
-              <Link
+              <a
                 className="text-sm w-full h-full flex items-center justify-end gap-2"
-                to={`https://new.land.naver.com/search?sk=${info.atclNm}`}
+                href={`https://new.land.naver.com/search?sk=${info.atclNm}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 네이버 부동산 정보
                 <img
@@ -107,7 +109,7 @@ export const JeonseCard2 = ({ info, url }) => {
                   height={16}
                   alt="seoul"
                 />
-              </Link>
+              </a>
             </div>
           </DrawerBody>
 
