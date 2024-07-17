@@ -96,8 +96,8 @@ export default function Result() {
               type={3}
               success={jeonse.certifiedRealEstateAgent.success}
             />
-            <ResultCard2 type={4} isOk={isHugOk} />
-            <ResultCard2 type={5} isOk={isCertiOk} />
+            <ResultCard2 type={4} isOk={isCertiOk} />
+            <ResultCard2 type={5} isOk={isHugOk} setIsHugOk={setIsHugOk} />
           </ul>
         </section>
         <Separator margin={40} />

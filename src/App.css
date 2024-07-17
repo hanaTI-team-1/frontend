@@ -39,3 +39,48 @@
   flex-direction: column;
   align-items: center;
 }
+
+.swal2-container {
+  z-index: 10001; /* Ensure it's higher than the modal's z-index */
+}
+
+.swal2-actions {
+  width: 100%;
+}
+
+.swal2-confirm {
+  background-color: rgb(248 113 113);
+  color: white;
+  font-weight: 600;
+  width: 90%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.swal2-fade-in {
+  animation: fadeIn 0.2s forwards;
+}
+
+.swal2-fade-out {
+  animation: fadeOut 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
