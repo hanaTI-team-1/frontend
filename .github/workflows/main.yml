@@ -1,4 +1,4 @@
-ㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊname: React build and deploy
+name: React build and deploy
 on:
   push:
     branches:
@@ -25,6 +25,9 @@ jobs:
 
       - name: Build # React Build
         run: vite build
+
+      - name: List build directory contents # 확인을 위해 빌드 디렉토리 내용 출력
+        run: ls -alh build
 
       - name: Deploy # S3에 배포하기
         env:
