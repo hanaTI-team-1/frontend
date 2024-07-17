@@ -17,10 +17,9 @@ import { useRef } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 export const JeonseCard2 = ({ info, url }) => {
-  console.log(info);
-  console.log(info.address);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  console.log(info);
 
   return (
     <li
@@ -35,7 +34,7 @@ export const JeonseCard2 = ({ info, url }) => {
           </div>
         </div>
         <hgroup className="flex flex-col gap-1">
-          <span className="text-2xl font-bold">
+          <span className="text-xl font-bold">
             {info.atclNm} {info.bildNm}
           </span>
           <span className="font-medium text-lg">{info.hanPrc}원</span>
@@ -96,14 +95,19 @@ export const JeonseCard2 = ({ info, url }) => {
                 </li>
               </ul>
             </div>
-            <div className="pt-2 text-sm opacity-70 flex items-center justify-end gap-2">
-              네이버 부동산 정보
-              <img
-                src="/icons/seoul-city.svg"
-                width={16}
-                height={16}
-                alt="seoul"
-              />
+            <div className="pt-2 opacity-70">
+              <Link
+                className="text-sm w-full h-full flex items-center justify-end gap-2"
+                to={`https://new.land.naver.com/search?sk=${info.atclNm}`}
+              >
+                네이버 부동산 정보
+                <img
+                  src="/icons/seoul-city.svg"
+                  width={16}
+                  height={16}
+                  alt="seoul"
+                />
+              </Link>
             </div>
           </DrawerBody>
 

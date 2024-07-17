@@ -68,8 +68,10 @@ export default function Protect() {
               searchResults.map((item, idx) => (
                 <AddressCard
                   key={idx}
+                  atclNm={item.atclNm}
                   address={item.address}
-                  buildingName={item.atclNm}
+                  road_address={item.addressRoad}
+                  building_name={item.buildingName}
                 />
               ))
             )}

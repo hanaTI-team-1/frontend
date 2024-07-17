@@ -7,7 +7,7 @@ export const Logo = () => {
       to={"/"}
       className="w-24 sm:w-32 lg:w-48 flex items-center gap-2 cursor-pointer"
     >
-      <FaHouseMedical size={32} className="text-blue-400" />
+      <img src="/icons/house.png" width={32} height={32} alt="logo" />
       <span className="font-bold text-lg tracking-wide text-neutral-700">
         예방
       </span>

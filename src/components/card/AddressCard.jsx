@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
 
-export default function AddressCard({ address, buildingName }) {
-  if (!address || !buildingName) return null;
-
+export default function AddressCard({
+  address,
+  road_address,
+  atclNm,
+  building_name,
+}) {
   return (
     <li>
       <Link
-        to={`/protect/${address}?bdNm=${buildingName}`}
+        to={`/protect/${address}?bdNm=${atclNm}`}
         className="h-[6.5rem] px-4 w-full flex justify-between bg-gray-100 hover:bg-gray-200 duration-200 group rounded-lg cursor-pointer"
       >
         <div className="h-full flex flex-col justify-evenly">
@@ -16,7 +19,7 @@ export default function AddressCard({ address, buildingName }) {
               도로명
             </span>
             <div className="pl-3 text-xs sm:text-sm text-neutral-700">
-              히히 아직 없음
+              {road_address} {building_name}
             </div>
           </div>
           <div className="flex items-center">
