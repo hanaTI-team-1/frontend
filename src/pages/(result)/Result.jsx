@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { PassCard2 } from "../../components/card/PassCard2";
+import { InfoCard1 } from "../../components/card/InfoCard1";
+import { InfoCard2 } from "../../components/card/InfoCard2";
 import InfraChart from "../../components/InfraChart";
 import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
@@ -116,7 +117,10 @@ export default function Result() {
         <Separator margin={50} />
         <Section3 jeonse={jeonse} />
         <Separator margin={50} />
-        <PassCard2 />
+        <div className="space-y-5">
+          <InfoCard1 />
+          <InfoCard2 />
+        </div>
         <div className="pt-20 flex justify-center pb-5">
           <IoIosArrowUp
             className="cursor-pointer"
