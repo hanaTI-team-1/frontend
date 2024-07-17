@@ -47,7 +47,7 @@ export default function Result() {
   }, [isHugOk]);
 
   useEffect(() => {
-    if (isCertiOkClicked > 2) {
+    if (isCertiOkClicked > 1) {
       if (isCertiOk === 2) setSuccessCount(successCount + 1);
       else setSuccessCount(successCount - 1);
     }
