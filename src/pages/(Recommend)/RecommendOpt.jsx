@@ -106,6 +106,7 @@ export default function RecommendOpt() {
             <input
               type="number"
               id="price"
+              value={price}
               name="price"
               autoComplete="off"
               onChange={(e) => {

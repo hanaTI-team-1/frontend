@@ -25,9 +25,12 @@ export const Header = () => {
         </Link>
       </nav>
 
-      <span className="hidden sm:block py-2 h-10 bg-zinc-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer">
+      <Link
+        to={"/insight"}
+        className="py-2 h-10 rounded-lg bg-slate-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer hover:bg-slate-300 hover:rounded-none duration-300"
+      >
         예방레포트
-      </span>
+      </Link>
     </header>
   );
 };
