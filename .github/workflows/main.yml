@@ -1,4 +1,4 @@
-name: React build and deploy
+ㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊㅊname: React build and deploy
 on:
   push:
     branches:
@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build # React Build
-        run: npm run build
+        run: vite build
 
       - name: Deploy # S3에 배포하기
         env:
