@@ -27,7 +27,7 @@ jobs:
         run: npm run build
 
       - name: List build directory contents # 확인을 위해 빌드 디렉토리 내용 출력
-        run: ls -alh build
+        run: ls -alh
 
       - name: Deploy # S3에 배포하기
         env:
