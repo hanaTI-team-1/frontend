@@ -39,7 +39,7 @@ export default function RecommendMap({ result, index }) {
     <div className="flex justify-center">
       <Map
         center={center}
-        style={{ width: "90%", height: "360px" }}
+        style={{ width: "80%", height: "280px" }}
         level={level}
       >
         {result.map((item, index) => {

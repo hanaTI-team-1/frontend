@@ -120,7 +120,7 @@ export default function RecommendOpt() {
               onChange={handlePoliceStationsChange}
             />
             <RecommendOption
-              title="편의점"
+              title="마트"
               defaultValue={groceriesValue}
               onChange={handleGroceriesChange}
             />

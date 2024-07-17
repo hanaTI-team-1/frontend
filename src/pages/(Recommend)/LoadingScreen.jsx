@@ -5,9 +5,9 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const intervals = [
-      setTimeout(() => setPhase(1), 7500),
-      setTimeout(() => setPhase(2), 15000),
-      setTimeout(() => setPhase(3), 22500),
+      setTimeout(() => setPhase(1), 8500),
+      setTimeout(() => setPhase(2), 16000),
+      setTimeout(() => setPhase(3), 24500),
     ];
 
     return () => intervals.forEach(clearTimeout);

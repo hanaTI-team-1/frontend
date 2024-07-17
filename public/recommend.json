@@ -3,7 +3,7 @@
   "code": 200,
   "message": "성공입니다.",
   "data": {
-    "clusterType": "x타입",
+    "clusterType": "Cluster B",
     "recommend": [
       {
         "jeonse": {

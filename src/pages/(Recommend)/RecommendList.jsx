@@ -44,7 +44,6 @@ export default function RecommendList() {
         //   params
         // );
         const response = await axios.get("/recommend.json");
-        // console.log(response.data);
         // console.log(response.data.data.clusterType);
         setResult(response.data.data.recommend);
         setType(response.data.data.clusterType);
@@ -81,24 +80,8 @@ export default function RecommendList() {
             </div>
           </h3>
           <div className="pt-20 flex justify-center">
-            {/* <div className="h-96 w-96 flex items-center justify-center relative">
-              <div className="absolute h-40 w-40 rounded-full bg-blue-200/50 animate-ping" />
-              <img
-                src="/vite.svg"
-                width={128}
-                height={128}
-                alt="loading"
-                className="inset-0 z-10 w-48 h-48"
-              />
-            </div> */}
             <LoadingScreen />
           </div>
-          {/* <div className="pt-20 flex justify-center">
-            <p className="w-72 opacity-70 animate-dots">
-              검사는 최대 1분까지 소요될 수 있습니다
-            </p>
-            <p className="w-72 opacity-70 text-center"></p>
-          </div> */}
         </div>
       </main>
     );
@@ -112,46 +95,55 @@ export default function RecommendList() {
             <h1 className="text-center text-4xl font-semibold">
               전세 매물을 찾았습니다
             </h1>
-            <p className="text-center text-2xl font-semibold">
-              추천 결과는{" "}
-              <span className="text-blue-500 font-bold">{type}</span>입니다
-            </p>
+
             <h2 className="mt-3 text-center text-2xl font-medium">
-              총 <strong className="text-blue-400">{result.length}</strong> 건의
-              매물이 검색되었습니다
+              {result === undefined || result.length === 0 ? (
+                <>추천 결과가 없습니다</>
+              ) : (
+                <>
+                  {" "}
+                  <p className="text-center text-2xl font-semibold">
+                    추천 타입은{" "}
+                    <span className="text-blue-500 font-bold">
+                      {type.replace("Cluster ", "") + " "}
+                    </span>
+                    입니다
+                  </p>
+                  총 <strong className="text-blue-400">{result.length}</strong>{" "}
+                  건의 매물이 검색되었습니다
+                </>
+              )}
             </h2>
             <Separator margin={20} />
-            <section className="px-20 max-h-[calc(100vh-15rem)] overflow-y-auto">
+            <section className="px-20 max-h-[calc(100vh-17.5rem)] overflow-y-auto">
               <ul className="space-y-7">
-                {result.map((item, index) => (
-                  <JeonseCard3
-                    info={item.jeonse}
-                    key={index}
-                    isDetail={false}
-                    // url={`/protect/result/${item.atclNo}`}
-                  />
-                ))}
+                {result === undefined || result.length === 0 ? (
+                  <>
+                    <div className="text-center text-xl font-semibold">
+                      더 구체적인 조건을 입력해보세요!
+                    </div>
+                    <div className="flex justify-center">
+                      <div
+                        className="py-2 h-10 rounded-lg bg-blue-300 text-center w-24 sm:w-32 lg:w-48 cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+                        onClick={() => {
+                          navigate(-1);
+                        }}
+                      >
+                        뒤로가기
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  result.map((item, index) => (
+                    <JeonseCard3
+                      info={item}
+                      key={index}
+                      isDetail={false}
+                      setDetail={setDetail}
+                    />
+                  ))
+                )}
               </ul>
-              <div className="flex justify-evenly mt-10 pb-10 text-center">
-                <div
-                  className="w-44 rounded-lg bg-slate-300  pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
-                  onClick={() => {
-                    // navigate(-1);
-                    navigate("/recommend");
-                  }}
-                >
-                  검색으로 돌아가기
-                </div>
-                <div
-                  className="w-44 rounded-lg bg-blue-400  pt-2 pb-2 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
-                  onClick={() => {
-                    // navigate(`/recommend/${gu}/${dong}/`);
-                    setDetail(true);
-                  }}
-                >
-                  자세히보기
-                </div>
-              </div>
             </section>
           </div>
         </main>

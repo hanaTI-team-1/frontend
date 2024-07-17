@@ -31,6 +31,12 @@ export default function Result() {
     getInfo();
   }, []);
 
+  useEffect(() => {
+    if (isHugOk === 2) setSuccessCount(successCount + 1);
+    else if (isHugOk === 3) setSuccessCount(successCount - 1);
+    if (isCertiOk === 2) setSuccessCount(successCount + 1);
+  }, [isHugOk, isCertiOk]);
+
   if (!jeonse) {
     return (
       <main className="min-h-full flex justify-center bg-slate-50">
@@ -42,7 +48,7 @@ export default function Result() {
             <div className="h-96 w-96 flex items-center justify-center relative">
               <div className="absolute h-40 w-40 rounded-full bg-blue-200/50 animate-ping" />
               <img
-                src="/vite.svg"
+                src="/loading/check-list.png"
                 width={128}
                 height={128}
                 alt="loading"
@@ -81,7 +87,7 @@ export default function Result() {
           </div>
           <h2 className="text-3xl font-bold text-center mt-10 text-neutral-700">
             해당 매물은{" "}
-            <strong className="text-blue-400">{successCount}</strong>/6개의
+            <strong className="text-blue-400">{successCount}</strong>/5개의
             검사를 통과했습니다
           </h2>
           <ul className="flex flex-wrap justify-between gap-10 p-10">
@@ -95,8 +101,8 @@ export default function Result() {
               type={3}
               success={jeonse.certifiedRealEstateAgent.success}
             />
-            <ResultCard2 type={4} isOk={isCertiOk} />
             <ResultCard2 type={5} isOk={isHugOk} setIsHugOk={setIsHugOk} />
+            <ResultCard2 type={4} isOk={isCertiOk} />
           </ul>
         </section>
         <Separator mt={100} mb={60} />
