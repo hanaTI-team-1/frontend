@@ -38,7 +38,6 @@ export default function RecommendOpt() {
   const { gu, dong } = useParams();
   const navigate = useNavigate();
 
-  // const [price, setPrice] = useState(0);
   const [price, setPrice] = useState(0);
   const [hanPrice, setHanPrice] = useState("");
 
@@ -71,11 +70,9 @@ export default function RecommendOpt() {
   };
 
   const getKoreanNumber = (price) => {
-    // setPrice(price);
-    setPrice(`${price}만`);
+    setPrice(price);
     let number = price;
-    // const koreanUnits = ["조", "억", "만", "원"];
-    const koreanUnits = ["조", "억", "만"];
+    const koreanUnits = ["조", "억", "만", "원1"];
     const unit = 10000;
     let result = "";
 
@@ -114,8 +111,8 @@ export default function RecommendOpt() {
               placeholder="원하시는 금액을 입력해주세요"
               className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
             />
-            <span className="sm:w-40 sm:h-14 sm:aspect-square flex items-center justify-end absolute top-1/2 right-4 sm:right-7 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
-              <span className="text-gray-400">{hanPrice}</span>
+            <span className="sm:w-20 sm:h-14 sm:aspect-square flex items-center justify-center absolute top-1/2 right-4 sm:right-5 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
+              {hanPrice}
             </span>
           </div>
           <div className="flex flex-col justify-center items-center w-[800px] mt-10">

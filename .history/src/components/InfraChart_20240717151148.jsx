@@ -38,7 +38,7 @@ export default function InfraChart(props) {
       },
     },
     xaxis: {
-      categories: ["학군", "치안", "버스정류장", "지하철", "마트"],
+      categories: ["학군", "치안", "버스정류장", "지하철", "마트", "편의점"],
       labels: {
         style: {
           colors: colors,
@@ -62,7 +62,7 @@ export default function InfraChart(props) {
 
   const [series, setSeries] = useState([
     {
-      data: [props.school, props.police, props.busStop, 1, props.mart, 21],
+      data: [mart, 22, 10, 28, 16, 21],
     },
   ]);
 

@@ -139,6 +139,7 @@ const Section1 = ({ data }) => {
         }`}
       >
         {/* {data.jeonsePrice > 100000 && (data.jeonsePrice / 10000) | (0 + "억")} */}
+        <console className="log">{data.jeonsePrice / 10000}</console>
         {console.log(data)}
         {data.jeonsePrice > 10000 && (Math.floor(data.jeonsePrice / 10000) + "억")}
         {data.jeonsePrice % 10000}만원
@@ -146,14 +147,7 @@ const Section1 = ({ data }) => {
       {/* <div className="mt-10 w-full h-96 bg-rose-100 flex items-center justify-center">
         차트그리기
       </div> */}
-
-      <InfraChart 
-        school={data.infrastructureNum.school}
-        police={data.infrastructureNum.publicSecurity}
-        busStop={data.infrastructureNum.busStop}
-        subway={data.infrastructureNum.subway}
-        mart={data.infrastructureNum.mart}
-      />
+      <InfraChart />
       <div className="w-full flex justify-center">
         <p className="mt-10 max-w-[80%] opacity-60 text-sm text-center break-keep">
           예방 AI는 총 전세에 영향을 주는 18가지 지표를 분석하여 전세가격을

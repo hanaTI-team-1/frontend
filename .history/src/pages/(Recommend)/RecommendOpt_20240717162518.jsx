@@ -71,8 +71,7 @@ export default function RecommendOpt() {
   };
 
   const getKoreanNumber = (price) => {
-    // setPrice(price);
-    setPrice(`${price}만`);
+    setPrice(price);
     let number = price;
     // const koreanUnits = ["조", "억", "만", "원"];
     const koreanUnits = ["조", "억", "만"];
