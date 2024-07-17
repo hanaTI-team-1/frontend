@@ -21,7 +21,9 @@ export const JeonseCard3 = ({ info, isDetail, onClick }) => {
   const btnRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const infraInfo = info.appropriateJeonsePrice.infrastructureNum;
+  const infraInfo = isDetail
+    ? info.appropriateJeonsePrice.infrastructureNum
+    : "";
 
   const handleOpen = () => {
     onOpen();
