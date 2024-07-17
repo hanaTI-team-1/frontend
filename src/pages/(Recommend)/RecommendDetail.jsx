@@ -84,7 +84,7 @@ export default function RecommendDetail({ result }) {
   }
 
   return (
-    <main className="min-h-full h-full flex flex-col items-center bg-slate-50">
+    <main className="min-h-full flex flex-col items-center bg-slate-50">
       <div className="min-h-full pt-28 px-0 max-w-[800px] w-full bg-white border-r border-l shadow-md">
         <h1 className="text-center text-4xl font-semibold">
           지도에서 찾아보세요!
@@ -96,8 +96,8 @@ export default function RecommendDetail({ result }) {
         <Separator margin={20} />
         <RecommendMap result={result} index={cardIndex} />
         <Separator margin={20} />
-        <section className="px-20 max-h-[calc(100vh-15rem)] overflow-y-auto">
-          <ul className="w-full space-y-7 min-h-96 max-h-[calc(100vh-23.5rem)] overflow-y-auto">
+        <section className="px-20 max-h-[calc(100vh-39.9rem)] overflow-y-auto">
+          <ul className="w-full space-y-7">
             {result.map((item, index) => (
               <JeonseCard3
                 info={item}
