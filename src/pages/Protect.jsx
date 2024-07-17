@@ -22,7 +22,6 @@ export default function Protect() {
     setIsSearching(true);
     const result = await api.get(`/jeonse/address?address=${address}`);
     if (result.status != 200) throw "검색 중 에러 발생";
-    console.log(result);
     setSearchResults(result.data.data);
     setIsSearching(false);
   };
@@ -36,7 +35,7 @@ export default function Protect() {
           예방은
           <strong className="text-3xl tracking-wide">
             {" "}
-            <NumberCounter max={24324} delay={1} />
+            <NumberCounter max={24324} delay={50} />
           </strong>
           개<br className="block sm:hidden" /> 의 전세 매물을 보호하고 있습니다.
         </p>

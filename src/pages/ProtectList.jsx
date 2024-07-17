@@ -8,24 +8,16 @@ import { Separator } from "../components/Separator";
 
 export default function ProtectList() {
   const [result, setResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { id: address } = useParams();
   let [_bdNm] = useSearchParams("bdNm");
-
-  let price = useSearchParams("price");
-  console.log(price);
-
   const bdNm = decodeURI(decodeURIComponent(_bdNm));
 
   useEffect(() => {
-    setIsLoading(true);
     const getResult = async () => {
       const result = await api.get(
         `/jeonse/remain?address=${address}&aptName=${bdNm.substring(5)}`
       );
-      console.log(result);
       setResult(result.data.data);
-      setIsLoading(false);
     };
 
     getResult();
