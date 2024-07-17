@@ -200,10 +200,12 @@ const Section3 = ({ data, jeonse }) => {
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
       <div className="mt-10 px-16">
-        <KakaoMap lat={jeonse.lat} lng={jeonse.lng} />
+        <div className="border">
+          <KakaoMap lat={jeonse.lat} lng={jeonse.lng} />
+        </div>
       </div>
-      <hgroup className="mt-5 space-y-10">
-        <h3 className="opacity-90 flex justify-center items-center gap-2 text-2xl font-semibold">
+      <hgroup className="mt-2 space-y-10">
+        <h3 className="pl-16 opacity-90 flex items-center gap-2 text-2xl font-semibold">
           <FaMapMarkerAlt className="text-blue-400" />
           {jeonse.address}
         </h3>
