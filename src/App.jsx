@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<PagesOutlet />}>
           <Route path="/protect" element={<Protect />} />
           <Route path="/protect/:id" element={<ProtectList />} />
-          <Route path="/protect/:id/result/:atclNo" element={<Result />} />
+          <Route path="/protect/result/:atclNo" element={<Result />} />
           <Route path="/recommend" element={<RecommendGu />} />
           <Route path="/recommend/:gu" element={<RecommendDong />} />
           <Route path="/recommend/:gu/:dong" element={<RecommendOpt />} />
