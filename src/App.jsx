@@ -9,6 +9,7 @@ import RecommendGu from "./pages/(Recommend)/RecommendGu";
 import RecommendDong from "./pages/(Recommend)/RecommendDong";
 import RecommendOpt from "./pages/(Recommend)/RecommendOpt";
 import RecommendList from "./pages/(Recommend)/RecommendList";
+import InsightModel1Page from "./pages/(insight)/InsightModel1Page";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/recommend/:gu" element={<RecommendDong />} />
           <Route path="/recommend/:gu/:dong" element={<RecommendOpt />} />
           <Route path="/recommend/:gu/:dong/list" element={<RecommendList />} />
+          <Route path="/insight/1" element={<InsightModel1Page />} />
           {/* <Route path="/recommend/:address/" element={<RecommendOpt />} />
           <Route
             path="/recommend/:address/:options"
