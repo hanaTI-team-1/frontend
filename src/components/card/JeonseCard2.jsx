@@ -19,7 +19,6 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 export const JeonseCard2 = ({ info, url }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  console.log(info);
 
   return (
     <li

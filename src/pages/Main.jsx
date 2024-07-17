@@ -27,7 +27,7 @@ export default function Main() {
 
   return (
     <main className="h-full">
-      <section className="relative min-h-full bg-rose-400">
+      <section className="relative min-h-full bg-neutral-800">
         <Suspense fallback={<div>영상 처리중</div>}>
           <img
             src="/main.gif"

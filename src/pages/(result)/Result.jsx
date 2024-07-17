@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { InfoCard1 } from "../../components/card/InfoCard1";
 import { InfoCard2 } from "../../components/card/InfoCard2";
-import InfraChart from "../../components/InfraChart";
 import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { Separator } from "../../components/Separator";
 import { api } from "../../lib/api";
 import { ResultCard } from "./_components/ResultCard";
 import { ResultCard2 } from "./_components/ResultCard2";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Result() {
   const { atclNo } = useParams();
@@ -27,7 +27,6 @@ export default function Result() {
       if (result.data.data.appropriateJeonsePrice.success) count++;
       setSuccessCount(count);
     };
-
     getInfo();
   }, []);
 
@@ -60,8 +59,6 @@ export default function Result() {
       </main>
     );
   }
-
-  console.log(jeonse);
 
   return (
     <main className="min-h-full flex justify-center bg-slate-50">
@@ -102,21 +99,12 @@ export default function Result() {
           </ul>
         </section>
         <Separator margin={40} />
-        <section>
-          <div className="w-full text-center">
-            <div className="text-4xl font-black mt-20">
-              예방AI가 진단한 전세가격이에요
-            </div>
-            <div className="text-4xl font-bold mt-10">200,000,000</div>
-            <InfraChart />
-            <div className="text-3xl font-bold mt-20">
-              예방 AI는 총 18가지 원인을 분석해서 전세가격을 예측하고 있어요
-            </div>
-          </div>
-        </section>
-        <Separator margin={50} />
-        <Section3 jeonse={jeonse} />
-        <Separator margin={50} />
+        <Section1 data={jeonse.appropriateJeonsePrice} />
+        <Separator margin={40} />
+        <Section2 data={jeonse.jeonseRate} />
+        <Separator margin={40} />
+        <Section3 data={jeonse.builderLedger} jeonse={jeonse.jeonse} />
+        <Separator margin={40} />
         <div className="space-y-5">
           <InfoCard1 />
           <InfoCard2 />
@@ -135,38 +123,99 @@ export default function Result() {
   );
 }
 
-function Section3({ jeonse }) {
-  let rate = 80;
+// 적정전세가 섹션
+const Section1 = ({ data }) => {
   return (
-    <section className="pt-10 text-center">
-      <div className="text-4xl font-black">예방AI가 계산한 전세가율이에요</div>
-      <div className="mt-5 text-xl font-bold opacity-70">
-        해당 매물은 적정가격보다 10% 더 저렴해요
+    <section className="w-full">
+      <h2 className="pl-5 opacity-70 text-2xl font-bold">적정전세가</h2>
+      <div className="mt-16 opacity-90 text-3xl font-bold text-center">
+        예방AI가 진단한 전세가격입니다.
       </div>
-      <div className="flex justify-evenly items-end mt-20">
-        <div className="flex flex-col items-center">
-          <img src="/building.png" style={{ width: rate + "%" }} />
-          <div className="font-bold mt-6">
-            <div className="text-xl">전세가</div>
-            <div className="text-3xl">1,800만원</div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center">
-          <img src="/building.png" />
-          <div className="font-bold mt-6">
-            <div className="text-xl">적정가</div>
-            <div className="text-3xl">
-              {jeonse.appropriateJeonsePrice.jeonsePrice > 100000 &&
-                (jeonse.appropriateJeonsePrice.jeonsePrice / 10000) |
-                  (0 + "억")}
-              {jeonse.appropriateJeonsePrice.jeonsePrice % 10000}만원
-            </div>
-          </div>
-        </div>
+      <div className="mt-4 text-4xl font-bold text-center  text-blue-400">
+        {data.jeonsePrice > 100000 && (data.jeonsePrice / 10000) | (0 + "억")}
+        {data.jeonsePrice % 10000}만원
       </div>
-      <p className="text-3xl font-bold mt-20">
-        예방 AI는 전세가율(전세가 / 매매가) 기준을 20%로 하고 있어요
-      </p>
+      <div className="mt-10 w-full h-96 bg-rose-100 flex items-center justify-center">
+        차트그리기
+      </div>
+      <div className="mt-20 opacity-70 text-xl font-medium text-center">
+        예방 AI는 총 18가지 원인을 분석하여 전세가격을 예측하고 있습니다.
+      </div>
     </section>
   );
-}
+};
+
+// 전세가율 섹션
+const Section2 = ({ data }) => {
+  return (
+    <section className="w-full">
+      <h2 className="pl-5 opacity-70 text-2xl font-bold">전세가율</h2>
+      <div className="mt-16 opacity-90 text-5xl font-semibold text-center">
+        전세가율:{" "}
+        <strong
+          className={`${
+            data.jeonseSaleRate <= 70 ? "text-blue-400" : "text-rose-400"
+          }`}
+        >
+          {data.jeonseSaleRate}%
+        </strong>
+      </div>
+      <h3 className="mt-10 opacity-85 text-3xl font-bold text-center">
+        {data.jeonseSaleRate <= 70 ? "안전합니다" : "위험합니다"}
+      </h3>
+      <div className="mt-20 opacity-70 text-xl font-medium text-center"></div>
+      <div className="w-full flex justify-center">
+        <p className="max-w-[80%] opacity-60 text-sm text-center break-keep">
+          전세가율이란 주택의 매매가격 대비 전세보증금의 비율을 수치로 표시한
+          것이며, 높을 수록 위험도가 증가합니다. 저희 예방 서비스는 전세가율은
+          70%이하를 권장드립니다.{" "}
+          <a
+            href="https://www.hankyung.com/article/2023050153501"
+            className="underline underline-offset-4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            더 알아보기
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// 건출물 관리 대장 섹션
+const Section3 = ({ data, jeonse }) => {
+  return (
+    <section className="w-full">
+      <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
+      <hgroup className="mt-16 space-y-10">
+        <h3 className="opacity-90 flex justify-center items-center gap-2 text-2xl font-semibold">
+          <FaMapMarkerAlt className="text-blue-400" />
+          {jeonse.address}
+        </h3>
+        <h3 className="opacity-90 text-center font-medium">
+          {data.information}
+        </h3>
+        <h3 className="mt-10 opacity-85 text-3xl font-bold text-center">
+          {data.success ? "안전합니다" : "위험합니다"}
+        </h3>
+        <div className="w-full flex justify-center">
+          <p className="max-w-[80%] opacity-60 text-sm text-center break-keep">
+            건축물대장이란 해당 건축물의 소유/이용 및 유지/관리 상태를 확인할 수
+            있는 장부로 시/군/군청에서 관리하는 공적 장부입니다. 예방 서비스에서
+            1. 위반건축물 여부, 2. 주용도를 살펴본 결과 안전한 것으로 확인
+            했습니다.
+            <a
+              href="https://gear-up3.com/%EA%B1%B4%EC%B6%95%EB%AC%BC%EB%8C%80%EC%9E%A5-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B2%95-%EC%A0%84%EC%84%B8%EC%82%AC%EA%B8%B0-%EC%98%88%EB%B0%A9-%EA%B1%B4%EC%B6%95%EB%AC%BC%ED%98%84%ED%99%A9/"
+              className="underline underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              더 알아보기
+            </a>
+          </p>
+        </div>
+      </hgroup>
+    </section>
+  );
+};
