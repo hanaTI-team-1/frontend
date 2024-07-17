@@ -5,19 +5,23 @@ import { JeonseCard2 } from "../components/card/JeonseCard2";
 import "animate.css";
 import { api } from "../lib/api";
 import { Separator } from "../components/Separator";
+import { AddressCardSkeleton } from "../components/card/AddressCardSkeleton";
 
 export default function ProtectList() {
   const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { id: address } = useParams();
   let [_bdNm] = useSearchParams("bdNm");
   const bdNm = decodeURI(decodeURIComponent(_bdNm));
 
   useEffect(() => {
     const getResult = async () => {
+      setIsLoading(true);
       const result = await api.get(
         `/jeonse/remain?address=${address}&aptName=${bdNm.substring(5)}`
       );
       setResult(result.data.data);
+      setIsLoading(false);
     };
 
     getResult();
@@ -36,6 +40,12 @@ export default function ProtectList() {
         <Separator margin={20} />
         <section className="px-20 max-h-[calc(100vh-15rem)] overflow-y-auto">
           <ul className="space-y-7">
+            {isLoading && (
+              <>
+                <AddressCardSkeleton />
+                <AddressCardSkeleton />
+              </>
+            )}
             {result.map((item, index) => {
               return (
                 <JeonseCard2
