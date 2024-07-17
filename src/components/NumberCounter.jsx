@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const NumberCounter = ({ max, delay }) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(24000);
 
   useEffect(() => {
-    let now = max;
+    let now = 200;
     const interval = setInterval(() => {
       setCount(Math.ceil(max - now));
       if (now <= 0) {
@@ -12,7 +12,7 @@ const NumberCounter = ({ max, delay }) => {
       }
       const step = now / 10;
       now -= step;
-    }, 50);
+    }, delay);
 
     // cleanup function to clear interval on component unmount
     return () => clearInterval(interval);
