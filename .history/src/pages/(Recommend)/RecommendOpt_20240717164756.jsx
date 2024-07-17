@@ -109,12 +109,10 @@ export default function RecommendOpt() {
               name="price"
               autoComplete="off"
               onChange={(e) => {
-                getKoreanNumber(e.target.value);
+                getKoreanNumber(e.target.value * 10000);
               }}
               placeholder="원하시는 금액을 입력해주세요"
               className="pl-3 sm:pl-10 w-full h-12 sm:h-20 border-2 rounded-lg md:rounded-full text-sm sm:text-xl shadow-lg focus:outline-none"
-              step="10000"
-              min="10000"
             />
             <span className="sm:w-40 sm:h-14 sm:aspect-square flex items-center justify-end absolute top-1/2 right-4 sm:right-7 transform -translate-y-1/2 rounded-lg md:rounded-full duration-150 text-xs">
               <span className="text-gray-400">{hanPrice}</span>
@@ -127,7 +125,7 @@ export default function RecommendOpt() {
               onChange={handlePoliceStationsChange}
             />
             <RecommendOption
-              title="마트"
+              title="편의점"
               defaultValue={groceriesValue}
               onChange={handleGroceriesChange}
             />
