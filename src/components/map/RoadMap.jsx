@@ -20,7 +20,7 @@ export default function RoadMap({ lat, lng }) {
       <RoadviewMarker
         position={{ lat: lat, lng: lng }}
         image={{
-          src: "/markers/home.png",
+          src: "/markers/home-kakao.png",
           size: markerSize,
         }}
       >

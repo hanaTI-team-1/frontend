@@ -47,7 +47,7 @@ export default function RecommendMap({ result, index }) {
               key={index}
               position={{ lat: item.jeonse.lat, lng: item.jeonse.lng }}
               image={{
-                src: "/markers/home.png",
+                src: "/markers/home-kakao.png",
                 size: markerSize,
               }}
             ></MapMarker>

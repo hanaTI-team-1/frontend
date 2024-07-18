@@ -311,7 +311,7 @@ const Section1 = ({ data, realPrc }) => {
             </div>
             <div>
               <div>예측가</div>
-              <img src="/markers/home-predict3.png" className="w-12 h-12" />
+              <img src="/markers/home-predict.png" className="w-12 h-12" />
             </div>
             <div className="flex items-end">
               <div className="font-semibold">+10%</div>
@@ -393,7 +393,6 @@ const Section2 = ({ data }) => {
 
 // 건출물 관리 대장 섹션
 const Section3 = ({ data, jeonse }) => {
-  console.log(data);
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
