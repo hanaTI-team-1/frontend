@@ -12,10 +12,7 @@ export const Footer = () => {
             <li className="cursor-pointer">사건사고</li>
           </ul>
         </nav>
-        <div>
-          <Logo />
-        </div>
-        <div>고객센터(유료) 국내 1800-11</div>
+        <div>문의 국내 010-8433-3792</div>
         <div>한국 폴리텍 대학 광명융합기술원</div>
         <div>Copyright 2024 KOPO GROUP.All rights Reserved</div>
       </div>
