@@ -35,24 +35,24 @@ export const ResultCard3 = ({
   const handleDownloadClick = async () => {
     setIsLoading(2);
     try {
-      // await axios
-      //   .post(
-      //     `http://34.64.53.101:8081/api/jeonse/register-doc?address=${addressRoad} ${aptDong} ${aptHo}`,
-      //     {},
-      //     { responseType: "blob" }
-      //   )
-      //   .then((response) => {
-      //     const blob = response.data;
-      //     const url = window.URL.createObjectURL(blob);
-      //     const a = document.createElement("a");
-      //     a.style.display = "none";
-      //     a.href = url;
-      //     a.download = `${addressRoad}_${aptDong}_${aptHo}_등기부등본.pdf`;
-      //     document.body.appendChild(a);
-      //     a.click();
-      //     window.URL.revokeObjectURL(url);
-      //   })
-      //   .catch((error) => console.error("Download failed:", error));
+      await axios
+        .post(
+          `http://34.64.53.101:8081/api/jeonse/register-doc?address=${addressRoad} ${aptDong} ${aptHo}`,
+          {},
+          { responseType: "blob" }
+        )
+        .then((response) => {
+          const blob = response.data;
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = `${addressRoad}_${aptDong}_${aptHo}_등기부등본.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => console.error("Download failed:", error));
     } catch (error) {
       setIsCertiOk(3);
       console.error("Error fetching recommendation:", error);

@@ -42,7 +42,6 @@ export default function Result() {
       setResultImgUrl({
         imgUrl: "good",
         bgColor: "bg-green-400",
-        // textColor: "text-green-400",
         textColor: "text-blue-400",
       });
     } else if (successCount >= 3) {
@@ -191,14 +190,25 @@ export default function Result() {
 
 // 적정전세가 섹션
 const Section1 = ({ data, realPrc }) => {
+  const makeHanPrc = (prc) => {
+    let hanPrc = "";
+    if (prc >= 10000) {
+      hanPrc = parseInt(prc / 10000) + "억";
+      prc -= parseInt(prc / 10000) * 10000;
+    }
+    if (prc > 0) {
+      hanPrc += " " + (prc % 10000) + "만원";
+    } else {
+      hanPrc += "원";
+    }
+
+    return hanPrc;
+  };
   let zScore = [];
   let lowJeonsePrice = Math.round(data.jeonsePrice * 0.9);
   let highJeonsePrice = Math.round(data.jeonsePrice * 1.1);
   let priceRate = realPrc / data.jeonsePrice;
   let xOffset = ((priceRate - 0.9) / (1.1 - 0.9)) * 100;
-  console.log("현재 매물가: " + realPrc);
-  console.log("AI 예측가: " + data.jeonsePrice);
-  console.log("비율: " + priceRate);
 
   const calculateZscore = () => {
     const zScoreInfo = {
@@ -261,25 +271,22 @@ const Section1 = ({ data, realPrc }) => {
           data.success ? "text-blue-400" : "text-rose-400"
         }`}
       >
-        {data.jeonsePrice > 10000 &&
-          Math.floor(data.jeonsePrice / 10000) + "억 "}
-        {data.jeonsePrice % 10000}만원
+        {makeHanPrc(data.jeonsePrice)}
       </div>
-      {priceRate < 0.9 || priceRate > 1.1 ? (
-        <>
-          <div className="text-sm text-center mt-4 text-gray-400">
-            오차 범위를 ±10%를 벗어난 전세가입니다 (현재가:{" "}
-            <span className="font-semibold">
-              {realPrc > 10000 && Math.floor(realPrc / 10000) + "억 "}{" "}
-              {realPrc % 10000}
-              만원
-            </span>
-            )
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
+      <div className="text-sm text-center mt-4 text-gray-400">
+        {priceRate < 0.9 || priceRate > 1.1 ? (
+          <>오차 범위를 ±10%를 벗어난 전세가입니다</>
+        ) : (
+          <></>
+        )}
+        (현재가:{" "}
+        <span className="font-semibold">
+          {realPrc > 10000 && Math.floor(realPrc / 10000) + "억 "}{" "}
+          {realPrc % 10000}
+          만원
+        </span>
+        )
+      </div>
 
       <div className="w-[90%] mx-auto">
         <div className="flex flex-col justify-center mt-10">
@@ -289,11 +296,11 @@ const Section1 = ({ data, realPrc }) => {
             ) : (
               <>
                 <div
-                  className="absolute top-[2px]"
+                  className="absolute top-[17px]"
                   style={{ left: xOffset * 0.93 + "%" }}
                 >
-                  <div className="text-center">현재가</div>
-                  <img src="/markers/home.png" className="w-12 h-12" />
+                  <div className="text-center text-xs">현재가</div>
+                  <img src="/markers/home-current.png" className="w-10 h-10" />
                 </div>
               </>
             )}
@@ -304,7 +311,7 @@ const Section1 = ({ data, realPrc }) => {
             </div>
             <div>
               <div>예측가</div>
-              <img src="/markers/home3.png" className="w-12 h-12" />
+              <img src="/markers/home-predict3.png" className="w-12 h-12" />
             </div>
             <div className="flex items-end">
               <div className="font-semibold">+10%</div>
@@ -315,19 +322,13 @@ const Section1 = ({ data, realPrc }) => {
           </div>
           <div className="w-[full] flex justify-between">
             <div className="text-gray-500 text-sm font-semibold">
-              {lowJeonsePrice > 10000 &&
-                Math.floor(lowJeonsePrice / 10000) + "억 "}
-              {lowJeonsePrice % 10000}만원
+              {makeHanPrc(lowJeonsePrice)}
             </div>
             <div className="text-gray-500 text-sm font-semibold">
-              {data.jeonsePrice > 10000 &&
-                Math.floor(data.jeonsePrice / 10000) + "억 "}
-              {data.jeonsePrice % 10000}만원
+              {makeHanPrc(data.jeonsePrice)}
             </div>
             <div className="text-gray-500 text-sm font-semibold">
-              {highJeonsePrice > 10000 &&
-                Math.floor(highJeonsePrice / 10000) + "억 "}
-              {highJeonsePrice % 10000}만원
+              {makeHanPrc(highJeonsePrice)}
             </div>
           </div>
         </div>
@@ -392,7 +393,7 @@ const Section2 = ({ data }) => {
 
 // 건출물 관리 대장 섹션
 const Section3 = ({ data, jeonse }) => {
-  // console.log(data);
+  console.log(data);
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>

@@ -20,6 +20,21 @@ export const JeonseCard2 = ({ info, url }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
+  const makeHanPrc = (prc) => {
+    let hanPrc = "";
+    if (prc >= 10000) {
+      hanPrc = parseInt(prc / 10000) + "억";
+      prc -= parseInt(prc / 10000) * 10000;
+    }
+    if (prc > 0) {
+      hanPrc += " " + (prc % 10000) + "만원";
+    } else {
+      hanPrc += "원";
+    }
+
+    return hanPrc;
+  };
+
   return (
     <li
       className="w-full h-32 py-5 px-10 flex justify-between shadow-lg bg-gray-100 hover:bg-gray-200 duration-200 rounded-md cursor-pointer group"
@@ -36,7 +51,7 @@ export const JeonseCard2 = ({ info, url }) => {
           <span className="text-xl font-bold">
             {info.atclNm} {info.bildNm}
           </span>
-          <span className="font-medium text-lg">{info.hanPrc}원</span>
+          <span className="font-medium text-lg">{makeHanPrc(info.prc)}</span>
           <span className="opacity-70">{info.spc2 + "평"}</span>
         </hgroup>
       </div>
@@ -84,7 +99,9 @@ export const JeonseCard2 = ({ info, url }) => {
                   <span className="p-2 col-span-2 text-right bg-slate-100">
                     가격
                   </span>
-                  <span className="py-2 col-span-8">{info.hanPrc}</span>
+                  <span className="py-2 col-span-8">
+                    {makeHanPrc(info.prc)}
+                  </span>
                 </li>
                 <li className="border-t grid grid-cols-10 gap-2">
                   <span className="p-2 col-span-2 text-right bg-slate-100">
