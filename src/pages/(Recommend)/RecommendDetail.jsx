@@ -15,7 +15,7 @@ export default function RecommendDetail({ result }) {
   };
 
   return (
-    <main className="min-h-full flex flex-col items-center bg-slate-50">
+    <main className="min-h-full h-full flex flex-col items-center bg-slate-50">
       <div className="min-h-full pt-28 px-0 max-w-[800px] w-full bg-white border-r border-l shadow-md">
         <h1 className="text-center text-4xl font-semibold">
           전세 매물을 찾았습니다
