@@ -1,11 +1,9 @@
-import { Logo } from "../Logo";
-
 export const Footer = () => {
   return (
-    <footer className="h-48 flex items-center justify-center bg-gray-500 text-white">
-      <div className="min-w-[500px]">
+    <footer className="h-48 text-sm md:text-md flex items-center justify-center bg-zinc-700 text-white">
+      <div className="space-y-1">
         <nav>
-          <ul className="flex gap-3">
+          <ul className="flex flex-wrap gap-2 md:gap-3">
             <li className="cursor-pointer">개인정보처리방침</li>
             <li className="cursor-pointer">신용정보활용체제</li>
             <li className="cursor-pointer">고객정보활용방침</li>
