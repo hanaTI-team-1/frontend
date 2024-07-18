@@ -49,11 +49,11 @@ export default function RecommendList() {
 
     const getResult = async () => {
       try {
-        // const response = await axios.post(
-        //   "http://34.64.53.101:8081/api/jeonse/recommend",
-        //   params
-        // );
-        const response = await axios.get("/sample/recommend.json");
+        const response = await axios.post(
+          "http://34.64.53.101:8081/api/jeonse/recommend",
+          params
+        );
+        // const response = await axios.get("/sample/recommend.json");
         // console.log(response.data.data.clusterType);
         setResult(response.data.data.recommend);
         setType(response.data.data.clusterType);

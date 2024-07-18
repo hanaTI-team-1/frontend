@@ -112,13 +112,16 @@ const Section1 = () => {
         />
       </Suspense>
       <hgroup className="min-h-[600px] absolute top-0 h-full w-full flex flex-col items-center pt-60 text-white bg-black/20">
-        <h2 className="animate__animated animate__fadeInUp text-3xl sm:text-5xl lg:text-6xl">
-          전세 사기와 추천
-        </h2>
-        <h1 className="animate__animated animate__fadeInUp mt-6 text-4xl sm:text-6xl lg:text-7xl">
-          <strong className="text-blue-300 font-extrabold">예방</strong>
-          에서 만나다
-        </h1>
+        <div className="w-[1500px] flex flex-col items-center">
+          <h2 className="w-full animate__animated animate__fadeInUp text-3xl sm:text-5xl lg:text-8xl text-right px-[30%]">
+            전세 사기 방지
+          </h2>
+
+          <h1 className="w-full animate__animated animate__fadeInUp mt-16 text-2xl sm:text-4xl lg:text-7xl text-right px-[30%]">
+            <strong className="text-blue-300 font-extrabold">예방</strong>
+            에서 만나다
+          </h1>
+        </div>
       </hgroup>
       <div className="absolute left-1/2 bottom-20 transform -translate-x-[50%]">
         <IoIosArrowDown

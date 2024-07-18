@@ -33,23 +33,19 @@ function RecommendOption({ title, defaultValue, onChange }) {
   );
 }
 
-// RecommendOpt 컴포넌트
 export default function RecommendOpt() {
   const { gu, dong } = useParams();
   const navigate = useNavigate();
 
-  // const [price, setPrice] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState();
   const [hanPrice, setHanPrice] = useState("");
 
-  // 각 항목에 대한 초기 값 설정
   const [policeStationsValue, setPoliceStationsValue] = useState(1);
   const [groceriesValue, setGroceriesValue] = useState(1);
   const [schoolsValue, setSchoolsValue] = useState(1);
   const [busStationsValue, setBusStationsValue] = useState(1);
   const [subwayStationsValue, setSubwayStationsValue] = useState(1);
 
-  // 값 변경 시 처리 함수
   const handlePoliceStationsChange = (newValue) => {
     setPoliceStationsValue(newValue);
   };
@@ -71,23 +67,32 @@ export default function RecommendOpt() {
   };
 
   const getKoreanNumber = (price) => {
-    // setPrice(price);
     setPrice(price);
     let number = price;
-    // const koreanUnits = ["조", "억", "만", "원"];
-    const koreanUnits = ["조", "억", "만"];
-    const unit = 10000;
     let result = "";
+    const koreanUnits = [
+      {
+        kor: "조",
+        num: 10000 * 10000,
+      },
+      {
+        kor: "억",
+        num: 10000,
+      },
+      {
+        kor: "만",
+        num: 1,
+      },
+    ];
 
-    while (number > 0) {
-      const mod = number % unit;
-      // const modToString = mod.toString().replace(/(\d)(\d{3})/, "$1,$2");
-      const modToString = mod.toString().replace(/(\d)(\d{3})/, "$1$2");
-      number = Math.floor(number / unit);
-      result = `${modToString}${koreanUnits.pop()}${result}`;
+    for (let i = 0; i < koreanUnits.length; i++) {
+      if (number / koreanUnits[i].num >= 1) {
+        result += Math.floor(number / koreanUnits[i].num) + koreanUnits[i].kor;
+        number = Math.floor(number % koreanUnits[i].num);
+      }
     }
 
-    setHanPrice(result);
+    setHanPrice(result + "원");
   };
   return (
     <>
@@ -150,7 +155,7 @@ export default function RecommendOpt() {
           </div>
           <div className="w-[80%] text-center">
             <div
-              className="rounded-lg bg-blue-400 pl-20 pr-20 pt-3 pb-3 text-lg text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
+              className="rounded-lg bg-blue-400 mt-4 pl-20 pr-20 pt-4 pb-4 text-xl text-black cursor-pointer hover:bg-blue-200 hover:rounded-none duration-300"
               onClick={() => {
                 navigate(
                   `/recommend/${gu}/${dong}/list?price=${price}&policeStation=${policeStationsValue}&groceries=${groceriesValue}&schools=${schoolsValue}&busStations=${busStationsValue}&subwayStations=${subwayStationsValue}`

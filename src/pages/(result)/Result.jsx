@@ -20,9 +20,8 @@ export default function Result() {
   const [successCount, setSuccessCount] = useState(0);
   const [aptDong, setAptDong] = useState("");
   const [aptHo, setAptHo] = useState("");
-  const [isHugOkClicked, setIsHugOkClicked] = useState(1);
-  const [isCertiOkClicked, setIsCertiOkClicked] = useState(1);
-  const [resultImgUrl, setResultImgUrl] = useState("smile-girl.jpg");
+  const [resultImgUrl, setResultImgUrl] = useState();
+  const [isHugClicked, setIsHugClicked] = useState(false);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -39,30 +38,50 @@ export default function Result() {
   }, []);
 
   useEffect(() => {
-    if (isHugOkClicked > 2) {
-      if (isHugOk === 2) setSuccessCount(successCount + 1);
-      else setSuccessCount(successCount - 1);
+    if (successCount >= 4) {
+      setResultImgUrl({
+        imgUrl: "good",
+        bgColor: "bg-green-400",
+        // textColor: "text-green-400",
+        textColor: "text-blue-400",
+      });
+    } else if (successCount >= 3) {
+      setResultImgUrl({
+        imgUrl: "soso",
+        bgColor: "bg-orange-400",
+        textColor: "text-orange-400",
+      });
+    } else {
+      setResultImgUrl({
+        imgUrl: "bad",
+        bgColor: "bg-red-400",
+        textColor: "text-red-400",
+      });
     }
-    setIsHugOkClicked(isHugOkClicked + 1);
+  }, [successCount]);
+
+  useEffect(() => {
+    if (!isHugClicked) {
+      if (isHugOk === 2) {
+        setSuccessCount(successCount + 1);
+        setIsHugClicked(true);
+      }
+    } else {
+      if (isHugOk === 2) {
+        setSuccessCount(successCount + 1);
+      } else {
+        setSuccessCount(successCount - 1);
+      }
+    }
   }, [isHugOk]);
 
   useEffect(() => {
-    if (isCertiOkClicked > 1) {
-      if (isCertiOk === 2) setSuccessCount(successCount + 1);
-      else setSuccessCount(successCount - 1);
-    }
-    setIsCertiOkClicked(isCertiOkClicked + 1);
-  }, [isCertiOk]);
-
-  useEffect(() => {
-    if (successCount >= 5) {
-      setResultImgUrl("smile-girl.jpg");
-    } else if (successCount >= 3) {
-      setResultImgUrl("smile-girl.jpg");
+    if (isCertiOk === 2) {
+      setSuccessCount(successCount + 1);
     } else {
-      setResultImgUrl("smile-girl.jpg");
+      setSuccessCount(successCount - 1);
     }
-  });
+  }, [isCertiOk]);
 
   if (!jeonse) {
     return (
@@ -105,17 +124,18 @@ export default function Result() {
           </h3>
 
           <div className="w-full h-[300px] flex justify-center">
-            <img
-              src={"/result/" + resultImgUrl}
-              width={300}
-              height={300}
-              alt="girl-smile"
-            />
+            <div className={"rounded-full mt-5 " + resultImgUrl.bgColor}>
+              <img
+                src={"/result/" + resultImgUrl.imgUrl + ".png"}
+                alt="result-img"
+                className="h-full rounded-full"
+              />
+            </div>
           </div>
-          <h2 className="text-3xl font-bold text-center mt-10 text-neutral-700">
+          <h2 className="text-3xl font-bold text-center mt-8 text-neutral-700">
             해당 매물은 현재{" "}
-            <strong className="text-blue-400">{successCount}</strong>/6개의
-            검사를 통과했습니다
+            <strong className={resultImgUrl.textColor}>{successCount}</strong>
+            /6개의 검사를 통과했습니다
           </h2>
           <ul className="flex flex-wrap justify-between gap-10 p-10">
             <ResultCard
@@ -142,7 +162,10 @@ export default function Result() {
           </ul>
         </section>
         <Separator mt={100} mb={60} />
-        <Section1 data={jeonse.appropriateJeonsePrice} />
+        <Section1
+          data={jeonse.appropriateJeonsePrice}
+          realPrc={jeonse.jeonse.prc}
+        />
         <Separator mt={140} mb={60} />
         <Section2 data={jeonse.jeonseRate} />
         <Separator mt={140} mb={60} />
@@ -167,7 +190,67 @@ export default function Result() {
 }
 
 // 적정전세가 섹션
-const Section1 = ({ data }) => {
+const Section1 = ({ data, realPrc }) => {
+  let zScore = [];
+  let lowJeonsePrice = Math.round(data.jeonsePrice * 0.9);
+  let highJeonsePrice = Math.round(data.jeonsePrice * 1.1);
+  // let priceRate = realPrc / data.jeonsePrice;
+  let priceRate = 24610 / data.jeonsePrice;
+  let xOffset = ((priceRate - 0.9) / (1.1 - 0.9)) * 100;
+  console.log("현재 매물가: " + realPrc);
+  console.log("AI 예측가: " + data.jeonsePrice);
+  console.log("비율: " + priceRate);
+
+  const calculateZscore = () => {
+    const zScoreInfo = {
+      busStop: {
+        mean: 17.23991,
+        std: 7.95655,
+      },
+      school: {
+        mean: 2.4505,
+        std: 1.68729,
+      },
+      publicSecurity: {
+        mean: 0.82134,
+        std: 0.82134,
+      },
+      mart: {
+        mean: 1.19229,
+        std: 1.20824,
+      },
+      subway: {
+        mean: 98.33341,
+        std: 1129.71449,
+      },
+    };
+
+    const zScoreNormalization = (value, mean, stdDev) => {
+      return ((value - mean) / stdDev) * 100;
+    };
+
+    for (const key in zScoreInfo) {
+      if (zScoreInfo.hasOwnProperty(key)) {
+        const { mean, std } = zScoreInfo[key];
+        let value = data.infrastructureNum[key];
+        let result = zScoreNormalization(
+          data.infrastructureNum[key],
+          mean,
+          std
+        );
+        zScore.push({
+          title: key,
+          value: value,
+          mean: mean,
+          stdDev: std,
+          result: Math.round(result),
+        });
+      }
+    }
+  };
+
+  calculateZscore();
+
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">적정전세가</h2>
@@ -179,22 +262,75 @@ const Section1 = ({ data }) => {
           data.success ? "text-blue-400" : "text-rose-400"
         }`}
       >
-        {/* {data.jeonsePrice > 100000 && (data.jeonsePrice / 10000) | (0 + "억")} */}
-        {/* {console.log(data)} */}
         {data.jeonsePrice > 10000 &&
-          Math.floor(data.jeonsePrice / 10000) + "억"}
+          Math.floor(data.jeonsePrice / 10000) + "억 "}
         {data.jeonsePrice % 10000}만원
       </div>
-      {/* <div className="mt-10 w-full h-96 bg-rose-100 flex items-center justify-center">
-        차트그리기
-      </div> */}
+      {priceRate < 0.9 || priceRate > 1.1 ? (
+        <>
+          <div>범위를 벗어난 전세가입니다</div>
+        </>
+      ) : (
+        <></>
+      )}
 
+      <div className="w-[90%] mx-auto">
+        <div className="flex flex-col justify-center mt-10">
+          <div className="relative">
+            {priceRate < 0.9 || priceRate > 1.1 ? (
+              <></>
+            ) : (
+              <>
+                <div
+                  className="absolute top-[2px]"
+                  style={{ left: xOffset + "%" }}
+                >
+                  <div className="text-center">현재가</div>
+                  <img src="/markers/home.png" className="w-12 h-12" />
+                </div>
+              </>
+            )}
+          </div>
+          <div className="text-gray-500 w-full flex justify-between mx-auto mb-1">
+            <div className="flex items-end">
+              <div className="font-semibold">-10%</div>
+            </div>
+            <div>
+              <div>예측가</div>
+              <img src="/markers/home3.png" className="w-12 h-12" />
+            </div>
+            <div className="flex items-end">
+              <div className="font-semibold">+10%</div>
+            </div>
+          </div>
+          <div className="w-[95%] mx-auto flex justify-center mb-1">
+            <div className="text-gray-500 w-full border border-black"></div>
+          </div>
+          <div className="w-[full] flex justify-between">
+            <div className="text-gray-500 text-sm font-semibold">
+              {lowJeonsePrice > 10000 &&
+                Math.floor(lowJeonsePrice / 10000) + "억 "}
+              {lowJeonsePrice % 10000}만원
+            </div>
+            <div className="text-gray-500 text-sm font-semibold">
+              {data.jeonsePrice > 10000 &&
+                Math.floor(data.jeonsePrice / 10000) + "억 "}
+              {data.jeonsePrice % 10000}만원
+            </div>
+            <div className="text-gray-500 text-sm font-semibold">
+              {highJeonsePrice > 10000 &&
+                Math.floor(highJeonsePrice / 10000) + "억 "}
+              {highJeonsePrice % 10000}만원
+            </div>
+          </div>
+        </div>
+      </div>
       <InfraChart
-        school={data.infrastructureNum.school}
-        police={data.infrastructureNum.publicSecurity}
-        busStop={data.infrastructureNum.busStop}
-        subway={data.infrastructureNum.subway}
-        mart={data.infrastructureNum.mart}
+        busStop={zScore[0].result}
+        school={zScore[1].result}
+        police={zScore[2].result}
+        mart={zScore[3].result}
+        subway={zScore[4].result}
       />
       <div className="w-full flex justify-center">
         <p className="mt-10 max-w-[80%] opacity-60 text-sm text-center break-keep">
@@ -249,6 +385,7 @@ const Section2 = ({ data }) => {
 
 // 건출물 관리 대장 섹션
 const Section3 = ({ data, jeonse }) => {
+  // console.log(data);
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
@@ -264,6 +401,9 @@ const Section3 = ({ data, jeonse }) => {
         </h3>
         <h3 className="opacity-90 text-center font-medium">
           {data.information}
+        </h3>
+        <h3 className="opacity-90 text-xl text-center font-bold">
+          건축물 위반 여부: {data.isViolation}
         </h3>
         <h3
           className={`mt-10 opacity-85 text-3xl font-bold text-center ${

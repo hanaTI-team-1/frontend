@@ -34,11 +34,11 @@ let checkList = [
   {
     title: "건축물대장",
     content: "건축물대장을 조회하세요",
-    btn: "주의 필요",
+    btn: "자세히보기",
     result: 3, // 주의 필요 -> 조회 안 될 경우 데이터 어떻게 오는지?
     // 어떤 정보 볼 수 있는지 몰라서 주는대로 프론트에 넣겠음...ㅠ
     scroll: 3096,
-    imgUrl: "/icons/presentation.png",
+    imgUrl: "/icons/book.png",
     duration: 0.35,
     delay: 0.1,
   },

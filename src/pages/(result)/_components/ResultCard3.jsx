@@ -120,21 +120,21 @@ export const ResultCard3 = ({
                   </h1>
                   <div className="flex items-center mb-5">
                     <input
-                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
+                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-md text-sm sm:text-md shadow-lg focus:outline-none"
                       placeholder="동을 입력해주세요 ex) 205동"
                       onChange={(e) => setAptDong(e.target.value)}
                     />
                   </div>
                   <div className="flex items-center mb-5">
                     <input
-                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-full text-sm sm:text-md shadow-lg focus:outline-none"
+                      className="pl-2 sm:pl-6 w-full h-12 sm:h-14 border-2 rounded-lg md:rounded-md text-sm sm:text-md shadow-lg focus:outline-none"
                       placeholder="호를 입력해주세요 ex) 505호"
                       onChange={(e) => setAptHo(e.target.value)}
                     />
                   </div>
                 </div>
                 <div
-                  className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
+                  className="bg-blue-400 text-center rounded-md pt-3 pb-3 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
                   onClick={() => handleDownloadClick()}
                 >
                   등기부등본 다운로드
@@ -173,7 +173,7 @@ export const ResultCard3 = ({
                   </div>
                 </div>
                 <div
-                  className="bg-blue-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
+                  className="bg-blue-400 text-center rounded-md pt-3 pb-3 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-semibold text-lg hover:bg-blue-300 w-full"
                   onClick={() => closeButtonClick()}
                 >
                   닫기

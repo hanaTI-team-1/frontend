@@ -1,14 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 import { useState } from "react";
-export default function InfraChart(props) {
-  const colors = [
-    "#1f77b4",
-    "#aec7e8",
-    "#ff7f0e",
-    "#ffbb78",
-    "#2ca02c",
-    "#98df8a",
-  ];
+export default function InfraChart({ busStop, school, police, mart, subway }) {
+  const colors = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c"];
 
   const [options, setOptions] = useState({
     chart: {
@@ -18,9 +11,8 @@ export default function InfraChart(props) {
     colors: colors,
     plotOptions: {
       bar: {
-        columnWidth: "30%",
+        columnWidth: "35%",
         distributed: true,
-        // horizontal: true,
       },
     },
     dataLabels: {
@@ -28,18 +20,19 @@ export default function InfraChart(props) {
     },
     legend: {
       show: true,
-      fontSize: "25px",
+      fontSize: "22.5px",
       fontWeight: "bold",
       markers: {
-        size: 15,
+        size: 12.5,
       },
       itemMargin: {
         horizontal: 15,
       },
     },
     xaxis: {
-      categories: ["학군", "치안", "버스정류장", "지하철", "마트"],
+      categories: ["지하철", "버스정류장", "학군", "경찰서", "마트"],
       labels: {
+        show: false,
         style: {
           colors: colors,
           fontSize: "15px",
@@ -48,26 +41,26 @@ export default function InfraChart(props) {
     },
     yaxis: {
       labels: {
-        show: false,
+        show: true,
       },
     },
     tooltip: {
-      enabled: false, // 기본 툴팁 비활성화
-      custom: function ({ series, seriesIndex, dataPointIndex }) {
-        // 사용자 지정 HTML 반환
-        return "<div>Custom tooltip content</div>";
-      },
+      enabled: true,
     },
   });
 
   const [series, setSeries] = useState([
     {
-      data: [props.school, props.police, props.busStop, 1, props.mart],
+      data: [subway, busStop, school, police, mart],
     },
   ]);
 
   return (
-    <div>
+    <div className="mt-8">
+      <h1 className="text-center mt-5 text-xl font-bold">인프라 정보</h1>
+      <h3 className="text-center mt-3 text-md text-gray-400 font-semibold">
+        z-score를 통해 분석한 결과입니다
+      </h3>
       <div id="chart">
         <ReactApexChart
           options={options}

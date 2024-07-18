@@ -78,7 +78,7 @@ function HugSlider({ onClose, setIsHugOk }) {
         onSlideChange={handleSlideChange}
         modules={[Pagination, Navigation]}
         className="mySwiper"
-        style={{ paddingTop: "30px" }} // 페이지네이션 공간을 확보하기 위한 패딩 추가
+        style={{ paddingTop: "30px" }}
       >
         {checkHugList.map((check, index) => {
           return (
@@ -145,19 +145,18 @@ const CustomNavigationButtons = ({ setIsHugOk, onClose }) => {
           <IoMdCheckmark size="25" />
         </div>
         <div className="ml-4 cursor-pointer w-full text-center pr-8">
-          맞아요
+          맞습니다
         </div>
       </div>
       <div
         className="bg-slate-300 flex items-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer w-2/3 mx-auto mb-4 text-black font-bold text-lg hover:bg-gray-200 w-full"
-        // onClick={() => swiper.slidePrev()}
         onClick={() => handleClick()}
       >
         <div className="rounded-full bg-white border-2 flex items-center justify-center cursor-pointer p-1">
           <IoClose size="25" />
         </div>
         <div className="ml-4 cursor-pointer w-full text-center pr-8">
-          아니에요
+          아닙니다
         </div>
       </div>
       {isError && (
@@ -169,8 +168,8 @@ const CustomNavigationButtons = ({ setIsHugOk, onClose }) => {
 
 const ErrorModal = ({ isOpen, onClose, setIsHugOk }) => {
   const handleClick = () => {
-    onClose();
     setIsHugOk(3);
+    onClose();
   };
 
   return (
@@ -186,10 +185,10 @@ const ErrorModal = ({ isOpen, onClose, setIsHugOk }) => {
                 보증보험 가입이 불가능합니다.
               </div>
               <div
-                className="bg-red-400 text-center rounded-md pt-2 pb-2 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-bold text-lg hover:bg-red-300 w-full"
+                className="bg-red-400 text-center rounded-md pt-3 pb-3 pl-5 pr-5 cursor-pointer mx-auto mb-4 text-white font-bold text-lg hover:bg-red-300 w-full"
                 onClick={() => handleClick()}
               >
-                확인했어요
+                확인했습니다
               </div>
             </div>
           </ModalBody>
