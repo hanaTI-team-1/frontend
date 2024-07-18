@@ -101,7 +101,7 @@ const InsightModel2Page = () => {
         </InsightArticle>
 
         <InsightArticle title={"7-2. Cluster별 마트개수 분석"} className={"text-xs"}>
-          <img src="/insight/model-2/mart.png" width={500} height={500} />
+          <img src="/insight/model-2/마트.png" width={500} height={500} />
           <p className="mt-5">
             각 클러스터 별로 마트 데이터의 분포를 시각화했습니다. Cluster0와 1 내 마트 데이터 개수가 고르게 분포되어있는 반면
             Cluster 2는 마트 개수가 높게 분포 되어있고, Cluster 2는 마트 개수가 낮게 분포되어있다는 사실을 발견할 수 있었습니다.
@@ -109,7 +109,7 @@ const InsightModel2Page = () => {
         </InsightArticle>
 
         <InsightArticle title={"7-2. Cluster별 버스정거장개수 분석"} className={"text-xs"}>
-          <img src="/insight/model-2/bus.png" width={500} height={500} />
+          <img src="/insight/model-2/버스.png" width={500} height={500} />
           <p className="mt-5">
             각 클러스터 별로 버스정거장개수 데이터의 분포를 시각화했습니다. 버스 정거장 개수는 다른 데이터에 비해 데이터의 분포가 유의미하게 차이가
             나는 것을 시각적으로 발견할 수 있었고, 그중 Cluster 2내 버스정거장개수 데이터가 가장 높게 분포되어있다는 사실 또한 발견할 수 가 있었습니다.
@@ -117,7 +117,7 @@ const InsightModel2Page = () => {
         </InsightArticle>
 
         <InsightArticle title={"7-3. Cluster별 경찰서개수 분석"} className={"text-xs"}>
-          <img src="/insight/model-2/police.png" width={500} height={500} />
+          <img src="/insight/model-2/경찰.png" width={500} height={500} />
           <p className="mt-5">
             각 클러스터 별로 경찰서개수 데이터의 분포를 시각화했습니다. 경찰서 개수 데이터는 다른 데이터에 비해 거의 클러스터 별로 크게 차이가 없고
             거의 동일한 분포를 가지고 있는 것을 확인 할 수 있었습니다. 그 중 Cluster 1이 유독 경찰서의 수 가 없는 것을 확인 할 수 있었습니다.
@@ -125,7 +125,7 @@ const InsightModel2Page = () => {
         </InsightArticle>
 
         <InsightArticle title={"7-4. Cluster별 지하철거리 분석"} className={"text-xs"}>
-          <img src="/insight/model-2/metro.png" width={500} height={500} />
+          <img src="/insight/model-2/지하철.png" width={500} height={500} />
           <p className="mt-5">
             각 클러스터 별로 지하철거리 데이터의 분포를 시각화했습니다. 지하철 거리는 각 클러스터마다 조금식 편차가 있는 것을 시각적으로 확인 할 수 있었습니다.
             또한 Cluster 2와 3간에 지하철거리 데이터 분포가 유의미하게 차이나는 것을 발견할 수 있었습니다.  
