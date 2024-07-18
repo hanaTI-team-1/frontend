@@ -37,27 +37,24 @@ export default function RecommendList() {
   const navigate = useNavigate();
   useEffect(() => {
     setIsLoading(true);
-    const params = {
-      dongName: dong,
-      policeOffice: policeStation,
-      subway: subwayStations,
-      school: schools,
-      mart: groceries,
-      bus: busStations,
-      price: price,
-    };
-
     const getResult = async () => {
+      const params = {
+        dongName: dong.replace(/(\d+동|본동)/, "동"),
+        policeOffice: policeStation,
+        subway: subwayStations,
+        school: schools,
+        mart: groceries,
+        bus: busStations,
+        price: price,
+      };
       try {
         const response = await axios.post(
           "http://34.64.53.101:8081/api/jeonse/recommend",
           params
         );
         // const response = await axios.get("/sample/recommend.json");
-        // console.log(response.data.data.clusterType);
         setResult(response.data.data.recommend);
         setType(response.data.data.clusterType);
-        console.log(result);
       } catch (error) {
         console.error("Error fetching recommendation:", error);
       } finally {
@@ -67,10 +64,6 @@ export default function RecommendList() {
 
     getResult();
   }, []);
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
 
   if (isLoading) {
     return (
@@ -206,7 +199,7 @@ export default function RecommendList() {
                     <div className="pl-3 mr-5 text-xl font-semibold text-blue-500">
                       D 유형
                     </div>
-                    <div className="font-semibold">집돌이 타입입니다</div>
+                    <div className="font-semibold">집돌이 유형입니다</div>
                   </div>
                 </div>
               </ModalBody>

@@ -56,7 +56,7 @@ export default function InfraChart({ busStop, school, police, mart, subway }) {
   ]);
 
   return (
-    <div className="mt-8">
+    <div className="mt-10">
       <h1 className="text-center mt-5 text-xl font-bold">인프라 정보</h1>
       <h3 className="text-center mt-3 text-md text-gray-400 font-semibold">
         z-score를 통해 분석한 결과입니다

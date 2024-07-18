@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
-// RecommendOption 컴포넌트 정의
 function RecommendOption({ title, defaultValue, onChange }) {
   const [value, setValue] = useState(defaultValue);
 
@@ -99,7 +98,8 @@ export default function RecommendOpt() {
       <main className="min-h-full w-full flex justify-center bg-slate-50">
         <div className="pt-28 w-full max-w-[800px] flex flex-col items-center bg-white border shadow-md">
           <h1 className="text-center text-4xl font-semibold">
-            <span className="font-black">예방AI</span>가 전세 매물을 추천해줘요!
+            <span className="font-black">예방AI</span>가 전세 매물을
+            추천해줍니다
           </h1>
           <p className="mt-3 text-sm sm:text-lg text-center break-keep">
             원하시는 금액과 인프라를 선택해주세요

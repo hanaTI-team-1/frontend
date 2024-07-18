@@ -194,8 +194,7 @@ const Section1 = ({ data, realPrc }) => {
   let zScore = [];
   let lowJeonsePrice = Math.round(data.jeonsePrice * 0.9);
   let highJeonsePrice = Math.round(data.jeonsePrice * 1.1);
-  // let priceRate = realPrc / data.jeonsePrice;
-  let priceRate = 24610 / data.jeonsePrice;
+  let priceRate = realPrc / data.jeonsePrice;
   let xOffset = ((priceRate - 0.9) / (1.1 - 0.9)) * 100;
   console.log("현재 매물가: " + realPrc);
   console.log("AI 예측가: " + data.jeonsePrice);
@@ -268,7 +267,15 @@ const Section1 = ({ data, realPrc }) => {
       </div>
       {priceRate < 0.9 || priceRate > 1.1 ? (
         <>
-          <div>범위를 벗어난 전세가입니다</div>
+          <div className="text-sm text-center mt-4 text-gray-400">
+            오차 범위를 ±10%를 벗어난 전세가입니다 (현재가:{" "}
+            <span className="font-semibold">
+              {realPrc > 10000 && Math.floor(realPrc / 10000) + "억 "}{" "}
+              {realPrc % 10000}
+              만원
+            </span>
+            )
+          </div>
         </>
       ) : (
         <></>
@@ -283,7 +290,7 @@ const Section1 = ({ data, realPrc }) => {
               <>
                 <div
                   className="absolute top-[2px]"
-                  style={{ left: xOffset + "%" }}
+                  style={{ left: xOffset * 0.93 + "%" }}
                 >
                   <div className="text-center">현재가</div>
                   <img src="/markers/home.png" className="w-12 h-12" />
@@ -303,7 +310,7 @@ const Section1 = ({ data, realPrc }) => {
               <div className="font-semibold">+10%</div>
             </div>
           </div>
-          <div className="w-[95%] mx-auto flex justify-center mb-1">
+          <div className="w-[93.5%] mx-auto flex justify-center mb-1">
             <div className="text-gray-500 w-full border border-black"></div>
           </div>
           <div className="w-[full] flex justify-between">

@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { Separator } from "../../components/Separator";
 import { JeonseCard3 } from "../../components/card/JeonseCard3";
-import RecommendMap from "../../components/map/RecommendMap";
+import RecommendMap from "./RecommendMap";
 
 export default function RecommendDetail({ result }) {
   const [cardIndex, setCardIndex] = useState("");
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
 
   const handleCardClick = (index) => {
     setCardIndex(index);

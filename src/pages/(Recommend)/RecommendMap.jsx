@@ -30,7 +30,6 @@ export default function RecommendMap({ result, index }) {
       });
       setLevel(3);
     }
-    console.log(center);
   }, [index]);
 
   const markerSize = { width: 52, height: 52 };
@@ -54,9 +53,6 @@ export default function RecommendMap({ result, index }) {
             ></MapMarker>
           );
         })}
-        {/* <MapMarker position={{ lat: lat, lng: lng }}> */}
-        {/* <div style={{ color: "#000" }}>{atclNm}</div> */}
-        {/* </MapMarker> */}
       </Map>
     </div>
   );

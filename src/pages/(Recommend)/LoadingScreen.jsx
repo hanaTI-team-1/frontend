@@ -24,7 +24,7 @@ export const LoadingScreen = () => {
               alt="Loading Phase 1"
             />
             <p className="text-xl text-blue-500 font-semibold">
-              지역 정보를 분석중이에요
+              지역 정보를 분석중입니다
             </p>
           </div>
         );
@@ -37,7 +37,7 @@ export const LoadingScreen = () => {
               alt="Loading Phase 2"
             />
             <p className="text-xl text-blue-500 font-semibold">
-              적정 가격을 찾아보고 있어요
+              적정 가격을 계산하는중입니다
             </p>
           </div>
         );
@@ -50,7 +50,7 @@ export const LoadingScreen = () => {
               alt="Loading Phase 3"
             />
             <p className="text-xl text-blue-500 font-semibold">
-              인프라 정보를 불러오고 있어요
+              인프라 정보를 불러오고 있습니다
             </p>
           </div>
         );
@@ -63,7 +63,7 @@ export const LoadingScreen = () => {
               alt="Loading Phase 4"
             />
             <p className="text-xl text-blue-500 font-semibold">
-              거의 다 됐어요!
+              잠시만 기다려주세요
             </p>
           </div>
         );
