@@ -362,9 +362,7 @@ const Section2 = ({ data }) => {
       <div className="mt-16 opacity-90 text-5xl font-semibold text-center">
         전세가율:{" "}
         <strong
-          className={`${
-            data.jeonseSaleRate <= 70 ? "text-blue-400" : "text-rose-400"
-          }`}
+          className={`${data.success ? "text-blue-400" : "text-rose-400"}`}
         >
           {data.jeonseSaleRate}%
         </strong>
@@ -373,7 +371,7 @@ const Section2 = ({ data }) => {
         className={`mt-10 opacity-85 text-3xl font-bold text-center
           ${data.success ? "text-blue-400" : "text-rose-400"}`}
       >
-        {data.jeonseSaleRate <= 70 ? "안전합니다" : "위험합니다"}
+        {data.success ? "안전합니다" : "위험합니다"}
       </h3>
       <div className="mt-20 opacity-70 text-xl font-medium text-center"></div>
       <div className="w-full flex justify-center">
