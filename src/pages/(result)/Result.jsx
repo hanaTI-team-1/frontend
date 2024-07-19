@@ -11,6 +11,10 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import KakaoMap from "../../components/KakaoMap";
 import InfraChart from "../../components/InfraChart";
 import { ResultCard3 } from "./_components/ResultCard3";
+import {
+  IoMdCheckmarkCircleOutline,
+  IoIosCloseCircleOutline,
+} from "react-icons/io";
 
 export default function Result() {
   const { atclNo } = useParams();
@@ -393,6 +397,8 @@ const Section2 = ({ data }) => {
 
 // 건출물 관리 대장 섹션
 const Section3 = ({ data, jeonse }) => {
+  console.log(data);
+  console.log(jeonse);
   return (
     <section className="w-full">
       <h2 className="pl-5 opacity-70 text-2xl font-bold">건축물 관리대장</h2>
@@ -401,25 +407,35 @@ const Section3 = ({ data, jeonse }) => {
           <KakaoMap lat={jeonse.lat} lng={jeonse.lng} />
         </div>
       </div>
-      <hgroup className="mt-2 space-y-10">
+      <hgroup className="mt-2">
         <h3 className="pl-16 opacity-90 flex items-center gap-2 text-2xl font-semibold">
           <FaMapMarkerAlt className="text-blue-400" />
           {jeonse.address}
         </h3>
-        <h3 className="opacity-90 text-center font-medium">
-          {data.information}
+        <h3 className="pl-20 md:pl-24 mt-10 flex items-center gap-1 opacity-90 font-medium">
+          {data.information}{" "}
+          {data.information.includes("근린") ? (
+            <IoIosCloseCircleOutline className="mt-1 text-rose-500" />
+          ) : (
+            <IoMdCheckmarkCircleOutline className="mt-1 text-green-500" />
+          )}
         </h3>
-        <h3 className="opacity-90 text-xl text-center font-bold">
-          건축물 위반 여부: {data.isViolation}
+        <h3 className="pl-20 md:pl-24 mt-1 flex items-center gap-1 opacity-90 font-medium">
+          건축물 위반 여부: {data.isViolation}{" "}
+          {data.isViolation === "정상건축물" ? (
+            <IoMdCheckmarkCircleOutline className="mt-1 text-green-500" />
+          ) : (
+            <IoIosCloseCircleOutline className="mt-1 text-rose-500" />
+          )}
         </h3>
         <h3
-          className={`mt-10 opacity-85 text-3xl font-bold text-center ${
+          className={`mt-20 opacity-85 text-3xl font-bold text-center ${
             data.success ? "text-blue-400" : "text-rose-500"
           }`}
         >
           {data.success ? "안전합니다" : "위험합니다"}
         </h3>
-        <div className="w-full flex justify-center">
+        <div className="mt-16 w-full flex justify-center">
           <p className="max-w-[80%] opacity-60 text-sm text-center break-keep">
             건축물대장이란 해당 건축물의 소유/이용 및 유지/관리 상태를 확인할 수
             있는 장부로 시/군/군청에서 관리하는 공적 장부입니다. 예방 서비스에서
